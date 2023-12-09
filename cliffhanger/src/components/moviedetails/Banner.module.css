@@ -40,7 +40,7 @@
   font-weight: bold;
   font-size: 13px;
   padding: 8px 15px 8px 15px;
-  border-radius: 10px;
+  border-radius: 15px;
   background-color: rgba(200, 200, 200, 0.6);
   display: inline-block;
 }
@@ -48,6 +48,7 @@
   max-width: 150px;
   background-color: #ae26f2;
   border-style: none;
+  border-radius: 15px;
 }
 .movieDetails {
   display: flex;
@@ -86,7 +87,7 @@
   gap: 1rem;
   color: #ae26f2;
   /* border: 1px violet solid; */
-  border-radius: 10px;
+  border-radius: 15px;
   background-color: rgba(225, 225, 225, 0.25);
   max-width: 250px;
   padding: 10px;
@@ -100,6 +101,7 @@
   width: 30px;
   height: auto;
   object-fit: cover;
+  border-radius: 15px;
 }
 .leadingActors {
   /* border: 1px lightblue solid; */
