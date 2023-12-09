@@ -3,6 +3,7 @@
 }
 .bannerContainer {
   position: relative;
+
 }
 .bannerImage {
   display: block;
@@ -114,4 +115,10 @@
   height: 200px;
   width: auto;
   object-fit: cover;
+}
+.castDiv{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap:10px;
 }

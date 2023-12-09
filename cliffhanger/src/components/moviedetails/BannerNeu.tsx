@@ -141,14 +141,18 @@ function BannerNeu() {
         <div className={styles.leadingActors}>
           <h4 style={{ marginBottom: "1rem" }}>Leading Actors</h4>
           <div className={styles.tableLeadingActors}>
-              {castData?.cast.map(actor => (
-                <img
-                  key={actor.id}
-                  className={styles.posterActor}
-                  src={`https://www.themoviedb.org/t/p/w276_and_h350_face${actor.profile_path}`}
-                  alt={actor.name}
-                />
-              ))}
+          {castData?.cast.slice(0, 5).map((actor) => (
+            <div className={styles.castDiv}>
+            <img
+              key={actor.id}
+              className={styles.posterActor}
+              src={`https://www.themoviedb.org/t/p/w276_and_h350_face${actor.profile_path}`}
+              alt={actor.name}
+            />
+            <p>{actor.name}</p>
+            </div>
+          ))}
+
           </div>
         </div>
       </div>

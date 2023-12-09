@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { Inter } from 'next/font/google'
 import Button from '../components/button/Button';
 import Header from '../components/header/Header/Header';
+import Layout from '@/components/layout/Layout';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,13 +18,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
         <script src="https://kit.fontawesome.com/8b4ae14cf9.js" crossorigin="anonymous"></script>
       </Head>
-      {/* <Button></Button>
-      <SearchBar setResults={setResults} />
-      <SearchResultList results={results} /> */}
-      <Header></Header>
-      <main>
-        
-      </main>
+      <Layout>{
+        }</Layout>
     </>
   )
 }
