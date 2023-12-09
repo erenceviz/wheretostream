@@ -22,7 +22,7 @@ export default function Home() {
       <SearchResultList results={results} /> */}
       <Header></Header>
       <main>
-        <h1>Cliffhanger</h1>
+        
       </main>
     </>
   )
