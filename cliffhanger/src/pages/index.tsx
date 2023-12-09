@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import { Inter } from 'next/font/google'
-import Header from '../components/header/Header/Header';
-
+import Button from '../components/button/Button';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,7 +21,7 @@ export default function Home() {
       <SearchResultList results={results} /> */}
       <Header></Header>
       <main>
-        
+        <h1>Cliffhanger</h1>
       </main>
     </>
   )
