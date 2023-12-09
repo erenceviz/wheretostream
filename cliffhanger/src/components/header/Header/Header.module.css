@@ -1,0 +1,15 @@
+.wrapper {
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    
+    color: white; /* Set your desired text color */
+  }
+
+ 
+  .searchWrapper{
+    flex:1;
+  }
+ 
