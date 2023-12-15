@@ -1,0 +1,35 @@
+.opener {
+    border: 1px yellow solid;
+}
+.getStartedBtn {
+  max-width: 150px;
+  background-color: #ae26f2;
+  border-style: none;
+}
+.threePopularMovies {
+  border: 1px purple solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.threePopularMovies img {
+  position: absolute;
+  width: 100px;
+  height: auto;
+  transform-origin: 50% 50%; /* Setzt den Ursprung der Transformation in die Mitte des Bildes */
+}
+
+.threePopularMovies img:nth-child(2) {
+    transform: rotate(120deg) translate(0%, -60%) rotate(-120deg);}
+
+.threePopularMovies img:nth-child(3) {
+  transform: rotate(240deg) translate(-50%, -50%) rotate(-240deg);
+}
+
+/* Überlappung der Ecken in der Mitte */
+.threePopularMovies img:nth-child(1),
+.threePopularMovies img:nth-child(2),
+.threePopularMovies img:nth-child(3) {
+  z-index: 1; /* Damit die überlappenden Ecken oben bleiben */
+  margin: -20px; /* Negative Ränder für die Überlappung */
+}

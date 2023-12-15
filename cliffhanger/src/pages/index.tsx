@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import Button from '../components/button/Button';
 import Header from '../components/header/Header/Header';
 import Layout from '@/components/layout/Layout';
+import WelcomePage from '@/components/home/Welcome/Welcome';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,6 +20,7 @@ export default function Home() {
         <script src="https://kit.fontawesome.com/8b4ae14cf9.js" crossorigin="anonymous"></script>
       </Head>
       <Layout>{
+        <WelcomePage></WelcomePage>
         }</Layout>
     </>
   )
