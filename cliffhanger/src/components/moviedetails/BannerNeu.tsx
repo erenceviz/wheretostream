@@ -4,31 +4,24 @@ import { useEffect, useState } from "react";
 import { MovieData } from "@/types/MovieData"; 
 import { CastData } from "@/types/CastData";
 
-const movieMetaData = ["Comedy", "Action", "Drama", "18+", "2023"];
 
 function BannerNeu() {
-  // Logic to get specific movie data for movie with id= "x"
-  // const apiKey = `${process.env.API_KEY}`; 
-  // const getMovieData = () => {
-  //   fetch(
-  //     "https://api.themoviedb.org/3/search/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&api_key=${apiKey}&query=${query}"
-  //   ).then(res => res.json()).then(json => console.log(json))
-  // };
   const [error, setError] = useState(); 
   const [isLoading, setIsLoading] = useState(false); 
   const [movieData, setMovieData] = useState<MovieData | null>(null);
   const [castData, setCast] = useState<CastData | null>(null);
 
+
   useEffect(() => {
     const getMovieData = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch("https://api.themoviedb.org/3/movie/872585?language=en-US&api_key=dafafcbe0ce651423372ac90650e5dad");
+        const response = await fetch(`https://api.themoviedb.org/3/movie/872585?language=en-US&api_key=${process.env.NEXT_PUBLIC_API_KEY}`);
         const movieData: MovieData = await response.json();
         setMovieData(movieData);
         // const releaseDate = new Date(movieData?.release_date);
         // const releaseYear = releaseDate.getFullYear();
-        const creditsResponse = await fetch(`https://api.themoviedb.org/3/movie/872585/credits?api_key=dafafcbe0ce651423372ac90650e5dad`);
+        const creditsResponse = await fetch(`https://api.themoviedb.org/3/movie/872585/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}`);
         const creditsData: CastData = await creditsResponse.json();
         setCast(creditsData);
       } catch (e: any) {
@@ -55,7 +48,6 @@ function BannerNeu() {
       <div className={styles.bannerContainer}>
         <img
           className={styles.bannerImage}
-          // src="https://i.redd.it/x36oy3277vcb1.jpg"
           src={`https://image.tmdb.org/t/p/original${movieData?.backdrop_path}`}
           alt=""
         />
@@ -71,7 +63,7 @@ function BannerNeu() {
                     
                   </p>
                 ))}
-                <p className={styles.movieMetaData}>{movieData?.release_date}</p>
+                <p className={styles.movieMetaData}>{movieData?.release_date.slice(0,4)}</p>
               
             </div>
             <Button className={styles.playTrailerBtn} variant="contained">
