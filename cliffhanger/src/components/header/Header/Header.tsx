@@ -23,7 +23,9 @@ function Header() {
       <Link href="/movies" passHref>
         <YourComponent buttonText="Movies" buttonType="movies" />
       </Link>
+      <Link href="/movieList" passHref>
       <YourComponent buttonText="TV Shows" buttonType="tvShows" />
+      </Link>
       <YourComponent buttonText="Make a list!" buttonType="makeList" />
     </div>
   );
