@@ -59,6 +59,11 @@ const MovieList = () => {
                   </p>
                 ))} */}
             </div>
+            <div>
+              {movieData?.map((movie) =>
+                <p key={movieData.id}>{movieData.title}</p>
+              )}
+            </div>
 
         </div>
       )

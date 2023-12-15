@@ -141,7 +141,7 @@ function BannerNeu() {
         <div className={styles.leadingActors}>
           <h4 style={{ marginBottom: "1rem" }}>Leading Actors</h4>
           <div className={styles.tableLeadingActors}>
-          {castData?.cast.slice(0, 5).map((actor) => (
+          {castData?.cast.slice(0, 4).map((actor) => (
             <div className={styles.castDiv}>
             <img
               key={actor.id}
