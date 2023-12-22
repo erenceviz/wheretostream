@@ -1,0 +1,57 @@
+.poster {
+    display: block;
+    height: 210px;
+    width: 140px;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+  .filterButtonContainer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1px; /* Adjust the gap as needed */
+    max-width: 900px; /* Set the maximum width for the container */
+    margin: 0 auto; /* Center the container horizontally */
+  }
+
+.filterButton{
+  padding-right: 10px;
+  position: relative;
+  margin: 10px;
+  
+}
+  
+  .container {
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow:hidden;
+    position:relative;
+    padding-right: 60px;
+    padding-left: 68px;
+    -webkit-box-pack: justify;
+    
+  }
+  
+  .container2 {
+    display: flex;
+    flex-direction: column;
+    position:relative;
+    margin-right: 30px;
+    contain: layout style;
+    max-width: 120px; /* Adjust the max-width based on your design */
+  }
+  
+  .container2 p {
+    font-size: 12px;
+    margin-top: 10px;
+    opacity: 0.8;
+    min-height: 60px;
+    max-width: 100%; /* Set max-width to 100% to make it responsive */
+    word-wrap: break-word; /* Allow long words to break and wrap */
+  }
+  

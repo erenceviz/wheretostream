@@ -18,6 +18,7 @@ function BannerNeu() {
       try {
         const response = await fetch(`https://api.themoviedb.org/3/movie/872585?language=en-US&api_key=${process.env.NEXT_PUBLIC_API_KEY}`);
         const movieData: MovieData = await response.json();
+        console.log(movieData); 
         setMovieData(movieData);
         // const releaseDate = new Date(movieData?.release_date);
         // const releaseYear = releaseDate.getFullYear();
