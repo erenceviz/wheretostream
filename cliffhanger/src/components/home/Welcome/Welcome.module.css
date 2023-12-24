@@ -1,5 +1,10 @@
 .opener {
+    display: flex;
     border: 1px yellow solid;
+}
+.openerContent{
+  width: 40%; 
+  margin-left: 3.39rem;
 }
 .getStartedBtn {
   max-width: 150px;
@@ -9,9 +14,11 @@
 .threePopularMovies {
   border: 1px purple solid;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
+  width: auto;
 }
+
 .threePopularMovies img {
   position: absolute;
   width: 100px;
@@ -27,9 +34,9 @@
 }
 
 /* Überlappung der Ecken in der Mitte */
-.threePopularMovies img:nth-child(1),
+/* .threePopularMovies img:nth-child(1),
 .threePopularMovies img:nth-child(2),
 .threePopularMovies img:nth-child(3) {
-  z-index: 1; /* Damit die überlappenden Ecken oben bleiben */
-  margin: -20px; /* Negative Ränder für die Überlappung */
-}
+  z-index: 1;
+  margin: -20px;
+} */
