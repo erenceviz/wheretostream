@@ -3,44 +3,40 @@ import styles from "./Welcome.module.css";
 import { Button } from "@mui/material";
 import { useState, useEffect } from "react";
 import PopularMovies from "@/types/PopularMovies";
-import { jsonDataPopularMovies } from "@/types/PopularMovies";
-
-// const [popularSeries, setPopularSeries] = useState([]);
-// const [latestMovies, setLatestMovies] = useState([]);
 
 function WelcomePage() {
   const [popularMovies, setPopularMovies] = useState<PopularMovies | null>(
     null
   );
+  // const [popularSeries, setPopularSeries] = useState([]);
+// const [latestMovies, setLatestMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [fetchCounter, setFetchCounter] = useState(0);
+
 
   useEffect(() => {
     const getListData = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetch(
-          `https://api.themoviedb.org/3/movie/popular?language=en-US&api_key=${process.env.NEXT_PUBLIC_API_KEY}`
-        );
-        const popularMovies: PopularMovies = await response.json();
-        console.log(popularMovies);
-        setPopularMovies(popularMovies);
-        const seriesResponse = await fetch(
-          `https://api.themoviedb.org/3/movie/872585/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
-        );
-        // const popularSeries = await seriesResponse.json();
-        // setPopularSeries(popularSeries);
-        // const latestMovieResponse = await fetch(
-        //   `https://api.themoviedb.org/3/movie/872585/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
-        // );
-        // const latestMovies = await latestMovieResponse.json();
-        // setLatestMovies(latestMovies);
-      } finally {
-        setIsLoading(false);
+      if (fetchCounter < 10) {
+        setIsLoading(true);
+        try {
+          const response = await fetch(
+            `https://api.themoviedb.org/3/movie/popular?language=en-US&api_key=${process.env.NEXT_PUBLIC_API_KEY}`
+          );
+
+          const popularMoviesData: PopularMovies = await response.json();
+          console.log(popularMoviesData);
+          setPopularMovies(popularMoviesData);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        } finally {
+          setIsLoading(false);
+          setFetchCounter(prevCounter => prevCounter + 1);
+        }
       }
     };
 
     getListData();
-  }, []);
+  }, [fetchCounter]);
 
   return (
     <>
@@ -72,12 +68,41 @@ function WelcomePage() {
       <div className={styles.lists}>
         <div className={styles.singleListDiv}>
           <h4 style={{ marginBottom: "1rem" }}>PopularMovies</h4>
-          <div className={styles.item}>
-            <img src="https://m.media-amazon.com/images/I/81oMfvordkL._AC_UF1000,1000_QL80_.jpg" />
-            <p>Filmtitel</p>
-          </div>
+          {popularMovies?.results.map((movie) => (
+            <div className={styles.item} key={movie.id}>
+              <img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt={movie.title}/>
+              <p>Filmtitel</p>
+            </div>
+          ))}
         </div>
       </div>
+
+      {/* <div className={styles.container}>
+        {([...movieData?.results, ...tvData?.results]
+          .filter((item) => {
+            if (filter === "All") {
+              return true;
+            } else if (filter === "Movies") {
+              return item instanceof TvListData;
+            } else if (filter === "TV Shows") {
+              return item instanceof TvListData;
+            } else {
+              // Handle other filters if needed
+              return false;
+            }
+          })
+          .map((item) => (
+            <div className={styles.container2} key={item.id}>
+              <img
+                className={styles.poster}
+                src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
+                alt={item.title || item.original_name}
+              />
+              <p>{item.title || item.original_name}</p>
+              {}
+            </div>
+          ))) || <p>No results found</p>}
+      </div> */}
     </>
   );
 }
