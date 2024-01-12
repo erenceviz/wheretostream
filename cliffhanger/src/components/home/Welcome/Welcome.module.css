@@ -1,10 +1,19 @@
 .opener {
-    display: flex;
-    border: 1px yellow solid;
+  display: flex;
+  border: 1px yellow solid;
 }
-.openerContent{
-  width: 40%; 
-  margin-left: 3.39rem;
+.openerContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 40%;
+  height: 400px;
+  gap: 2rem;
+  margin-left: 12.9rem;
+}
+.openerContent h2 {
+  word-spacing: 4px;
+  line-height: 2rem;
 }
 .getStartedBtn {
   max-width: 150px;
@@ -27,12 +36,26 @@
 }
 
 .threePopularMovies img:nth-child(2) {
-    transform: rotate(120deg) translate(0%, -60%) rotate(-120deg);}
+  transform: rotate(120deg) translate(0%, -60%) rotate(-120deg);
+}
 
 .threePopularMovies img:nth-child(3) {
   transform: rotate(240deg) translate(-50%, -50%) rotate(-240deg);
 }
-
+.lists {
+}
+.singleListDiv {
+  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.item img {
+  display: block;
+  height: 200px;
+  width: auto;
+  object-fit: cover;
+}
 /* Überlappung der Ecken in der Mitte */
 /* .threePopularMovies img:nth-child(1),
 .threePopularMovies img:nth-child(2),
