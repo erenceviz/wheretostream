@@ -26,7 +26,7 @@ const YourComponent = ({ buttonText, buttonType }) => {
         style={{
           ...buttonStyles,
           marginLeft: 10,
-          height:25,
+          height:30,
           borderRadius: 15,
           textTransform: 'none',
           transition: 'background-color 0.3s',

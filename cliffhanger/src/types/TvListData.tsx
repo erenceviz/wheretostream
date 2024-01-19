@@ -1,9 +1,9 @@
-export interface MovieListData {
+export interface TvListData {
     results:{
         
         poster_path:string;
         title:string;
         genre_ids: number[];
-        original_title:string;
+        original_name:string;
     }
 }

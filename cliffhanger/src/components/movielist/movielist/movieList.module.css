@@ -8,17 +8,19 @@
 
   .filterButtonContainer {
     display: flex;
-    justify-content: space-between;
+    justify-content:flex-start;
     flex-wrap: wrap;
-    gap: 1px; /* Adjust the gap as needed */
-    max-width: 900px; /* Set the maximum width for the container */
-    margin: 0 auto; /* Center the container horizontally */
+    gap: 20px; 
+    max-width: 900px; 
+    margin-left: 70px; 
+    margin-bottom: 20px;
+    margin-top: 50px;
   }
 
 .filterButton{
   padding-right: 10px;
   position: relative;
-  margin: 10px;
+  margin: 250px;
   
 }
   
@@ -41,9 +43,10 @@
     display: flex;
     flex-direction: column;
     position:relative;
-    margin-right: 30px;
+    margin-right: 40px;
     contain: layout style;
     max-width: 120px; /* Adjust the max-width based on your design */
+    margin-bottom: 10px;
   }
   
   .container2 p {

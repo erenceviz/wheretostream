@@ -7,10 +7,15 @@
     padding: 1rem;
     z-index:2;
     color: white; /* Set your desired text color */
+    margin-top: 10px;
   }
 
  
   .searchWrapper{
     flex:1;
+  }
+
+  .buttonWrapper{
+    margin-right: 60px;
   }
  
