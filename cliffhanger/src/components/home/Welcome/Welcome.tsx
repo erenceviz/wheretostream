@@ -3,40 +3,71 @@ import styles from "./Welcome.module.css";
 import { Button } from "@mui/material";
 import { useState, useEffect } from "react";
 import PopularMovies from "@/types/PopularMovies";
+import { TvListData } from "@/types/TVListData";
 
 function WelcomePage() {
-  const [popularMovies, setPopularMovies] = useState<PopularMovies | null>(
-    null
-  );
-  // const [popularSeries, setPopularSeries] = useState([]);
-// const [latestMovies, setLatestMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [fetchCounter, setFetchCounter] = useState(0);
-
+  const [popularMovies, setPopularMovies] = useState<PopularMovies | null>(null);
+  const [popularSeries, setPopularSeries] = useState<TvListData | null>(null);
+  const [releasedSoon, setReleasedSoon] = useState<PopularMovies | null>(null);
 
   useEffect(() => {
-    const getListData = async () => {
-      if (fetchCounter < 10) {
+    // Popular Movies
+    const getPopularMovies = async () => {
         setIsLoading(true);
         try {
           const response = await fetch(
             `https://api.themoviedb.org/3/movie/popular?language=en-US&api_key=${process.env.NEXT_PUBLIC_API_KEY}`
           );
-
           const popularMoviesData: PopularMovies = await response.json();
           console.log(popularMoviesData);
           setPopularMovies(popularMoviesData);
         } catch (error) {
-          console.error('Error fetching data:', error);
+          console.error("Error fetching data:", error);
         } finally {
           setIsLoading(false);
-          setFetchCounter(prevCounter => prevCounter + 1);
         }
-      }
     };
 
-    getListData();
-  }, [fetchCounter]);
+    // Popular Series
+    const getPopularSeries = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch(
+          `https://api.themoviedb.org/3/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc&api_key=${process.env.NEXT_PUBLIC_API_KEY}`
+
+        );
+        const popularSeries: TvListData = await response.json();
+        console.log("Popular Series: ", popularSeries);
+        setPopularSeries(popularSeries);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    // Released Soon
+    const getReleasedSoon = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch(
+          `https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1&api_key=${process.env.NEXT_PUBLIC_API_KEY}`
+        );
+        const releasedSoon: PopularMovies = await response.json();
+        console.log("Released Soon: ", releasedSoon);
+        setReleasedSoon(releasedSoon);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    getPopularMovies();
+    getPopularSeries(); 
+    getReleasedSoon(); 
+  }, []);
 
   return (
     <>
@@ -66,43 +97,52 @@ function WelcomePage() {
         </div>
       </div>
       <div className={styles.lists}>
-        <div className={styles.singleListDiv}>
-          <h4 style={{ marginBottom: "1rem" }}>PopularMovies</h4>
-          {popularMovies?.results.map((movie) => (
-            <div className={styles.item} key={movie.id}>
-              <img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt={movie.title}/>
-              <p>Filmtitel</p>
-            </div>
-          ))}
+        <div className={styles.container}>
+          <h4 style={{ marginTop: "2.5rem",marginBottom: "1rem" }}>Popular Movies</h4>
+          <div className={styles.singleListDiv}>
+            {popularMovies?.results.slice(0,8).map((movie) => (
+              <div className={styles.item} key={movie.id}>
+                <img
+                  src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                  alt={movie.title}
+                />
+                <p>{movie.title}</p>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* <div className={styles.container}>
-        {([...movieData?.results, ...tvData?.results]
-          .filter((item) => {
-            if (filter === "All") {
-              return true;
-            } else if (filter === "Movies") {
-              return item instanceof TvListData;
-            } else if (filter === "TV Shows") {
-              return item instanceof TvListData;
-            } else {
-              // Handle other filters if needed
-              return false;
-            }
-          })
-          .map((item) => (
-            <div className={styles.container2} key={item.id}>
-              <img
-                className={styles.poster}
-                src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
-                alt={item.title || item.original_name}
-              />
-              <p>{item.title || item.original_name}</p>
-              {}
-            </div>
-          ))) || <p>No results found</p>}
-      </div> */}
+        <div className={styles.container}>
+          <h4 style={{ marginTop: "2.5rem",marginBottom: "1rem" }}>Popular Series</h4>
+          <div className={styles.singleListDiv}>
+            {popularSeries?.results.slice(0,8).map((series) => (
+              <div className={styles.item} key={series.id}>
+                <img
+                  src={`https://image.tmdb.org/t/p/original${series.poster_path}`}
+                  alt={series.title}
+                />
+                <p>{series.original_name}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        <div className={styles.container}>
+          <h4 style={{ marginTop: "2.5rem",marginBottom: "1rem" }}>Released Soon</h4>
+          <div className={styles.singleListDiv}>
+            {releasedSoon?.results.slice(0,8).map((movie) => (
+              <div className={styles.item} key={movie.id}>
+                <img
+                  src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                  alt={movie.title}
+                />
+                <p>{movie.title}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
     </>
   );
 }
