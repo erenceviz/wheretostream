@@ -3,7 +3,7 @@ import styles from "./Welcome.module.css";
 import { Button } from "@mui/material";
 import { useState, useEffect } from "react";
 import PopularMovies from "@/types/PopularMovies";
-import { TvListData } from "@/types/TVListData";
+import { TvListData } from "@/types/TvListData";
 
 function WelcomePage() {
   const [isLoading, setIsLoading] = useState(false);
