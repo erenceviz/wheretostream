@@ -1,5 +1,22 @@
 .opener {
-    border: 1px yellow solid;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 4rem 0rem 4rem 0rem;
+  /* border: 1px yellow solid; */
+}
+.openerContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 4.5rem 0rem 4.5rem 0rem;
+  width: 1400px;
+  gap: 2.5rem;
+}
+
+.openerContent h2 {
+  word-spacing: 4px;
+  line-height: 2rem;
 }
 .getStartedBtn {
   max-width: 150px;
@@ -7,29 +24,124 @@
   border-style: none;
 }
 .threePopularMovies {
-  border: 1px purple solid;
+  /* border: 1px purple solid; */
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
+  margin-left: 100px;
+  /* width: auto; */
 }
+
 .threePopularMovies img {
   position: absolute;
   width: 100px;
   height: auto;
-  transform-origin: 50% 50%; /* Setzt den Ursprung der Transformation in die Mitte des Bildes */
+  /* transform-origin: 50% 50%;  */
+}
+.threePopularMovies img:nth-child(1) {
+  transform: rotate(120deg) translate(-30%, 20%) rotate(-120deg)
 }
 
 .threePopularMovies img:nth-child(2) {
-    transform: rotate(120deg) translate(0%, -60%) rotate(-120deg);}
+  transform: rotate(120deg) translate(0%, -50%) rotate(-120deg);
+}
 
 .threePopularMovies img:nth-child(3) {
-  transform: rotate(240deg) translate(-50%, -50%) rotate(-240deg);
+  transform: rotate(240deg) translate(-40%, -50%) rotate(-240deg);
 }
+
+.lists{
+  border: 3ßx solid green;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5rem;
+}
+
+.container{
+  /* border: 2px solid blueviolet; */
+  height: 340px;
+}
+
+.container h4{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.singleListDiv {
+  /* border: 1px solid red; */
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 1rem;
+  width: fit-content;
+}
+
+.item{
+  display: flex;
+  flex-direction: column;
+  position:relative;
+  margin-right: 40px;
+  contain: layout style;
+  max-width: 140px;
+  margin-bottom: 10px;
+}
+
+.item:last-child{
+  margin-right: 0px;
+}
+
+.item p{
+  /* font-size: 12px; */
+  margin-top: 0.5rem;
+  max-width: 100%;
+  word-wrap: break-word;
+}
+.item img {
+  display: block;
+  height: auto; 
+  width: 160px;
+  object-fit: cover;
+}
+
+/* .container {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  overflow:hidden;
+  position:relative;
+  padding-right: 60px;
+  padding-left: 68px;
+  -webkit-box-pack: justify;
+  
+}
+
+.container2 {
+  display: flex;
+  flex-direction: column;
+  position:relative;
+  margin-right: 40px;
+  contain: layout style;
+  max-width: 120px;
+  margin-bottom: 10px;
+}
+
+.container2 p {
+  font-size: 12px;
+  margin-top: 10px;
+  opacity: 0.8;
+  min-height: 60px;
+  max-width: 100%;
+  word-wrap: break-word;
+} */
+
 
 /* Überlappung der Ecken in der Mitte */
-.threePopularMovies img:nth-child(1),
+/* .threePopularMovies img:nth-child(1),
 .threePopularMovies img:nth-child(2),
 .threePopularMovies img:nth-child(3) {
-  z-index: 1; /* Damit die überlappenden Ecken oben bleiben */
-  margin: -20px; /* Negative Ränder für die Überlappung */
-}
+  z-index: 1;
+  margin: -20px;
+} */

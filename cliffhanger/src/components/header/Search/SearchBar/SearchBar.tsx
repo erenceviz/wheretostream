@@ -8,15 +8,14 @@ export const SearchBar = ({ setResults }) => {
 
   const fetchData = async (query: string) => {
     try {
-      const apiKey = 'dafafcbe0ce651423372ac90650e5dad'; 
       const response = await fetch(
-        `https://api.themoviedb.org/3/search/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&api_key=${apiKey}&query=${query}`
+        `https://api.themoviedb.org/3/search/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&api_key=${process.env.NEXT_PUBLIC_API_KEY}&query=${query}`
       );
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error('Searchbar ');
       }
-
+      
       const data = await response.json();
       setResults(data.results);
     } catch (error) {

@@ -1,3 +1,4 @@
+import Footer from "../footer/Footer";
 import Header from "../header/Header/Header";
 
 const Layout = ({ children }) => {
@@ -5,6 +6,7 @@ const Layout = ({ children }) => {
     <div style={{ zIndex: 3 }}>
       <Header  />
       <main>{children}</main>
+      <Footer/>
     </div>
   );
 };

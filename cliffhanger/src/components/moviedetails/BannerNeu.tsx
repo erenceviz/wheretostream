@@ -48,7 +48,7 @@ function BannerNeu() {
       <div className={styles.bannerContainer}>
         <img
           className={styles.bannerImage}
-          src={`https://image.tmdb.org/t/p/original${movieData?.backdrop_path}`}
+          src={movieData?.backdrop_path ? `https://image.tmdb.org/t/p/original${movieData?.backdrop_path}` : ''}          
           alt=""
         />
         <div className={styles.bannerContentBackground}>
@@ -76,9 +76,7 @@ function BannerNeu() {
         <div className={styles.posterAndInfo}>
           <img
             className={styles.poster}
-            // src="https://m.media-amazon.com/images/I/71xDtUSyAKL._AC_UF894,1000_QL80_.jpg"
-            src={`https://image.tmdb.org/t/p/original${movieData?.poster_path}`}
-            alt=""
+            src={movieData?.poster_path ? `https://image.tmdb.org/t/p/original${movieData?.poster_path}` : ''}            
           />
           <div className={styles.infoToPoster}>
             <div className={styles.headlineWithBookmark}>
@@ -134,7 +132,7 @@ function BannerNeu() {
           <h4 style={{ marginBottom: "1rem" }}>Leading Actors</h4>
           <div className={styles.tableLeadingActors}>
           {castData?.cast.slice(0, 4).map((actor) => (
-            <div className={styles.castDiv}>
+            <div key={actor.id} className={styles.castDiv}>
             <img
               key={actor.id}
               className={styles.posterActor}
