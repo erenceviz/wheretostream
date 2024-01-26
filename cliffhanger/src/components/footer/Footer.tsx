@@ -5,7 +5,7 @@ import MovieQuote from "@/types/MovieQuote";
 
 const Footer = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [movieQuotes, setMovieQuote] = useState<MovieQuote | null>(null);
+  const [movieQuotes, setMovieQuote] = useState<MovieQuote[]>([]);
 
   useEffect(() => {
     const getMovieQuotes = async () => {
@@ -14,7 +14,7 @@ const Footer = () => {
         const response = await fetch(
           `https://trial-api-popular-movie-quote-2t9j.gw.openapihub.com/movie-quote/quote-by-type?type=movie&X-OpenAPIHub-Key=e618778939d24b50a4eab064346cd55a`
         );
-        const movieQuotes: MovieQuote = await response.json();
+        const movieQuotes: MovieQuote[] = await response.json();
         const firstThreeObjects = movieQuotes.slice(0, 5);
         console.log(firstThreeObjects);
         // console.log("Movie Quotes: ", movieQuotes);
