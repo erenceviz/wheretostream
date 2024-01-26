@@ -16,17 +16,22 @@ function Header() {
 
   return (
     <div className={S.wrapper}>
-      <Logo />
+      <Link className={S.logoButton} href="/" passHref>
+        <Logo />
+      </Link>
+      
       <div className={S.searchWrapper}>
         <Search/>
       </div>
-      <Link href="/movies" passHref>
-        <YourComponent buttonText="Movies" buttonType="movies" />
-      </Link>
-      <Link href="/movieList" passHref>
-      <YourComponent buttonText="TV Shows" buttonType="tvShows" />
-      </Link>
-      <YourComponent buttonText="Make a list!" buttonType="makeList" />
+      <div className={S.buttonWrapper}>
+        <Link href="/movies" passHref>
+          <YourComponent buttonText="Movies" buttonType="movies" />
+        </Link>
+        <Link href="/movieList" passHref>
+        <YourComponent buttonText="TV Shows" buttonType="tvShows" />
+        </Link>
+        <YourComponent buttonText="Make a list!" buttonType="makeList" />
+        </div>
     </div>
   );
 }
