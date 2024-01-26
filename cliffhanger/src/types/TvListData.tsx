@@ -5,4 +5,4 @@ export interface TvListData {
         genre_ids: number[];
         original_name:string;
     }
-}
+} 
