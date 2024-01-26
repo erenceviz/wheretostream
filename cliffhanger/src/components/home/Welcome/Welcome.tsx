@@ -74,7 +74,7 @@ function WelcomePage() {
       <div className={styles.opener}>
         <div className={styles.openerContent}>
           <h2>
-            Finde Serien und Filme auf <br /> deinen gewünschten <br />{" "}
+            Finde Filme und Serien auf <br /> deinen gewünschten <br />
             Streaming-Portalen
           </h2>
           <Button className={styles.getStartedBtn} variant="contained">
@@ -98,7 +98,7 @@ function WelcomePage() {
       </div>
       <div className={styles.lists}>
         <div className={styles.container}>
-          <h4 style={{ marginTop: "2.5rem",marginBottom: "1rem" }}>Popular Movies</h4>
+          <h4>Popular Movies</h4>
           <div className={styles.singleListDiv}>
             {popularMovies?.results.slice(0,8).map((movie) => (
               <div className={styles.item} key={movie.id}>
@@ -113,7 +113,7 @@ function WelcomePage() {
         </div>
 
         <div className={styles.container}>
-          <h4 style={{ marginTop: "2.5rem",marginBottom: "1rem" }}>Popular Series</h4>
+          <h4>Popular Series</h4>
           <div className={styles.singleListDiv}>
             {popularSeries?.results.slice(0,8).map((series) => (
               <div className={styles.item} key={series.id}>
@@ -128,7 +128,7 @@ function WelcomePage() {
         </div>
         
         <div className={styles.container}>
-          <h4 style={{ marginTop: "2.5rem",marginBottom: "1rem" }}>Released Soon</h4>
+          <h4>Released Soon</h4>
           <div className={styles.singleListDiv}>
             {releasedSoon?.results.slice(0,8).map((movie) => (
               <div className={styles.item} key={movie.id}>

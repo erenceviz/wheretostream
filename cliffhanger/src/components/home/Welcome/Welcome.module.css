@@ -1,16 +1,19 @@
 .opener {
   display: flex;
-  border: 1px yellow solid;
+  flex-direction: row;
+  justify-content: center;
+  margin: 4rem 0rem 4rem 0rem;
+  /* border: 1px yellow solid; */
 }
 .openerContent {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 40%;
-  height: 400px;
-  gap: 2rem;
-  margin-left: 12.9rem;
+  margin: 4.5rem 0rem 4.5rem 0rem;
+  width: 1400px;
+  gap: 2.5rem;
 }
+
 .openerContent h2 {
   word-spacing: 4px;
   line-height: 2rem;
@@ -21,26 +24,30 @@
   border-style: none;
 }
 .threePopularMovies {
-  border: 1px purple solid;
+  /* border: 1px purple solid; */
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  width: auto;
+  margin-left: 100px;
+  /* width: auto; */
 }
 
 .threePopularMovies img {
   position: absolute;
   width: 100px;
   height: auto;
-  transform-origin: 50% 50%; /* Setzt den Ursprung der Transformation in die Mitte des Bildes */
+  /* transform-origin: 50% 50%;  */
+}
+.threePopularMovies img:nth-child(1) {
+  transform: rotate(120deg) translate(-30%, 20%) rotate(-120deg)
 }
 
 .threePopularMovies img:nth-child(2) {
-  transform: rotate(120deg) translate(0%, -60%) rotate(-120deg);
+  transform: rotate(120deg) translate(0%, -50%) rotate(-120deg);
 }
 
 .threePopularMovies img:nth-child(3) {
-  transform: rotate(240deg) translate(-50%, -50%) rotate(-240deg);
+  transform: rotate(240deg) translate(-40%, -50%) rotate(-240deg);
 }
 
 .lists{
@@ -48,11 +55,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 5rem;
 }
 
-/* .container{
-  border: 2px solid blueviolet;
-} */
+.container{
+  /* border: 2px solid blueviolet; */
+  height: 340px;
+}
+
+.container h4{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
 
 .singleListDiv {
   /* border: 1px solid red; */
@@ -84,8 +98,8 @@
 }
 .item img {
   display: block;
-  height: 200px;
-  width: auto;
+  height: auto; 
+  width: 160px;
   object-fit: cover;
 }
 
