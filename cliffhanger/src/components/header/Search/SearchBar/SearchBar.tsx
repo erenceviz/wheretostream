@@ -2,6 +2,8 @@ import React, { useState, ChangeEvent, useEffect } from 'react';
 import { SearchResult } from '@/types/SearchResult';
 import S from "./SearchBar.module.css";
 
+
+
 export const SearchBar = ({ setResults }) => {
   const [inputText, setInputText] = useState<string>("");
   // const [results, setResults] = useState<SearchResult[]>([]);
@@ -28,6 +30,15 @@ export const SearchBar = ({ setResults }) => {
     setInputText(value);
   };
 
+  const handleResultClick = (result: SearchResult) => {
+    // Handle the click on the search result
+    // ...
+
+    // Reset the search term and clear the results
+    setInputText("");
+    setResults([]);
+  };
+
   useEffect(() => {
     // Fetch data when inputText changes
     fetchData(inputText);
@@ -41,6 +52,7 @@ export const SearchBar = ({ setResults }) => {
                 placeholder="Search..."
                 value={inputText}
                 onChange={handleInputChange}
+                
             />
 
     

@@ -5,3 +5,8 @@
 .searchResult:hover {
     background-color: #efefef;
 }
+
+.link {
+    text-decoration: none; /* Remove hyperlink underline */
+    color: black;
+  }

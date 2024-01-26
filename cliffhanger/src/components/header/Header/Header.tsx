@@ -16,7 +16,10 @@ function Header() {
 
   return (
     <div className={S.wrapper}>
-      <Logo />
+      <Link className={S.logoButton} href="/" passHref>
+        <Logo />
+      </Link>
+      
       <div className={S.searchWrapper}>
         <Search/>
       </div>

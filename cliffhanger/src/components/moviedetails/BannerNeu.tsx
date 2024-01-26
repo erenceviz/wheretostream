@@ -3,26 +3,28 @@ import styles from "./Banner.module.css";
 import { useEffect, useState } from "react";
 import { MovieData } from "@/types/MovieData"; 
 import { CastData } from "@/types/CastData";
+import { useParams } from 'react-router-dom';
 
+interface BannerNeuProps {
+  movieId: string | string[] | undefined;
+}
 
-function BannerNeu() {
+function BannerNeu( {movieId}: BannerNeuProps ) {
+  // const { id } = useParams();
   const [error, setError] = useState(); 
   const [isLoading, setIsLoading] = useState(false); 
   const [movieData, setMovieData] = useState<MovieData | null>(null);
   const [castData, setCast] = useState<CastData | null>(null);
 
-
   useEffect(() => {
     const getMovieData = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(`https://api.themoviedb.org/3/movie/872585?language=en-US&api_key=${process.env.NEXT_PUBLIC_API_KEY}`);
+        const response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?language=en-US&api_key=${process.env.NEXT_PUBLIC_API_KEY}`);
         const movieData: MovieData = await response.json();
-        console.log(movieData); 
         setMovieData(movieData);
-        // const releaseDate = new Date(movieData?.release_date);
-        // const releaseYear = releaseDate.getFullYear();
-        const creditsResponse = await fetch(`https://api.themoviedb.org/3/movie/872585/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}`);
+
+        const creditsResponse = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}`);
         const creditsData: CastData = await creditsResponse.json();
         setCast(creditsData);
       } catch (e: any) {
@@ -33,7 +35,7 @@ function BannerNeu() {
     };
 
     getMovieData();
-  }, []);
+  }, [movieId]); 
 
 
   if(isLoading){
@@ -55,7 +57,7 @@ function BannerNeu() {
         <div className={styles.bannerContentBackground}>
           <div className={styles.gradient}></div>
           <div className={styles.bannerContent}>
-            <h5 className={styles.h5}>Watch</h5>
+            <h2 className={styles.h5}>Watch</h2>
             <h1>{movieData?.title}</h1>
             <div style={{ display: "flex", gap: "5px" }}>
             {movieData?.genres.map((genre) => (
@@ -88,14 +90,14 @@ function BannerNeu() {
                 alt="Bookmark"
               />
             </div>
-            <h5 className={styles.h5}>{movieData?.runtime} minutes</h5>
+            <h4 className={styles.h4}>{movieData?.runtime} minutes</h4>
             <p style={{ marginTop: "20px" }}>
               {movieData?.overview}
             </p>
           </div>
         </div>
         <div className={styles.whereToWatch}>
-          <h4 style={{ marginBottom: "1rem" }}>Where to watch (The Curse)</h4>
+          <h4 style={{ marginBottom: "1rem" }}>Where to watch {movieData?.title}</h4>
           <div className={styles.tableWhereToWatch}>
             <div className={styles.watchItem}>
               <img
