@@ -32,16 +32,21 @@
 }
 .quote{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     text-align: center;
-    gap: 10px;
+    gap: 3rem;
 }
 .quote p:first-child{
     font-weight: 700;
+    word-wrap: break-word;
 }
 .quote p:last-child{
     font-size: 12px;
+}
+.singleQuote{
+    max-width: 240px;
+    text-align: center;
 }
 .lowerFooter{
     display: flex;

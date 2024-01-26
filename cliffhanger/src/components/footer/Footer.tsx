@@ -1,28 +1,34 @@
+import { useState, useEffect } from "react";
 import Logo from "@/components/header/Logo/Logo";
 import styles from "./Footer.module.css";
-
-// fetch("https://juanroldan1989-moviequotes-v1.p.rapidapi.com/api/v1/quotes", {
-//   method: "GET",
-//   headers: {
-//     Authorization: "Token token=yd8WzkWNEEzGtqMSgiZBrwtt",
-//     "X-RapidAPI-Key": "356152ba72mshbf5a4cf4d2f59a1p1c77d1jsn9760af3d3d0e",
-//     "X-RapidAPI-Host": "juanroldan1989-moviequotes-v1.p.rapidapi.com",
-//   },
-// })
-// .then((response) => {
-// if (!response.ok) {
-//     throw new Error("Network response was not ok");
-// }
-// return response.json();
-// })
-// .then((data) => {
-// console.log("Top 10 Movie Quotes:", data);
-// })
-// .catch((error) => {
-// console.error("There was an error fetching the data:", error);
-// });
+import MovieQuote from "@/types/MovieQuote";
 
 const Footer = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [movieQuotes, setMovieQuote] = useState<MovieQuote | null>(null);
+
+  useEffect(() => {
+    const getMovieQuotes = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch(
+          `https://trial-api-popular-movie-quote-2t9j.gw.openapihub.com/movie-quote/quote-by-type?type=movie&X-OpenAPIHub-Key=e618778939d24b50a4eab064346cd55a`
+        );
+        const movieQuotes: MovieQuote = await response.json();
+        const firstThreeObjects = movieQuotes.slice(0, 5);
+        console.log(firstThreeObjects);
+        // console.log("Movie Quotes: ", movieQuotes);
+        setMovieQuote(firstThreeObjects);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    getMovieQuotes();
+  }, []);
+
   return (
     <div className={styles.footer}>
       <div className={styles.upperFooter}>
@@ -30,22 +36,14 @@ const Footer = () => {
         <div className={styles.seperationline}></div>
         <div className={styles.quotes}>
           <div className={styles.quote}>
-            <p>
-              It's a Quote <br /> with a break.{" "}
-            </p>
-            <p>Filmtitel, 2016</p>
-          </div>
-          <div className={styles.quote}>
-            <p>
-              It's a Quote <br /> with a break.{" "}
-            </p>
-            <p>Filmtitel, 2016</p>
-          </div>
-          <div className={styles.quote}>
-            <p>
-              It's a Quote <br /> with a break.{" "}
-            </p>
-            <p>Filmtitel, 2016</p>
+            {movieQuotes?.map((quote) => (
+              <div className={styles.singleQuote} key={quote.quote}>
+                <p>
+                  {quote.quote}
+                </p>
+                <p>{quote.movie}, {quote.year}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
