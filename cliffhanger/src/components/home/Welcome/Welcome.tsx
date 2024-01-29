@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 import { useState, useEffect } from "react";
 import PopularMovies from "@/types/PopularMovies";
 import { TvListData } from "@/types/TvListData";
+import Link from 'next/link';
 
 function WelcomePage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -101,6 +102,7 @@ function WelcomePage() {
           <h4>Popular Movies</h4>
           <div className={styles.singleListDiv}>
             {popularMovies?.results.slice(0,8).map((movie) => (
+              <Link key={movie.id} href={`/movie/${movie.id}`} className={styles.link}>
               <div className={styles.item} key={movie.id}>
                 <img
                   src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
@@ -108,6 +110,8 @@ function WelcomePage() {
                 />
                 <p>{movie.title}</p>
               </div>
+              <a/>
+              </Link>
             ))}
           </div>
         </div>
@@ -116,6 +120,7 @@ function WelcomePage() {
           <h4>Popular Series</h4>
           <div className={styles.singleListDiv}>
             {popularSeries?.results.slice(0,8).map((series) => (
+              <Link key={series.id} href={`/movie/${series.id}`} className={styles.link}>
               <div className={styles.item} key={series.id}>
                 <img
                   src={`https://image.tmdb.org/t/p/original${series.poster_path}`}
@@ -123,6 +128,8 @@ function WelcomePage() {
                 />
                 <p>{series.original_name}</p>
               </div>
+              <a/>
+              </Link>
             ))}
           </div>
         </div>
@@ -131,6 +138,8 @@ function WelcomePage() {
           <h4>Released Soon</h4>
           <div className={styles.singleListDiv}>
             {releasedSoon?.results.slice(0,8).map((movie) => (
+              <Link key={movie.id} href={`/movie/${movie.id}`} className={styles.link}>
+                <a href=""></a>
               <div className={styles.item} key={movie.id}>
                 <img
                   src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
@@ -138,6 +147,8 @@ function WelcomePage() {
                 />
                 <p>{movie.title}</p>
               </div>
+              <a/>
+              </Link>
             ))}
           </div>
         </div>

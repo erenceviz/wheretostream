@@ -68,6 +68,7 @@
   margin-bottom: 1rem;
 }
 
+
 .singleListDiv {
   /* border: 1px solid red; */
   display: flex;
@@ -84,6 +85,11 @@
   contain: layout style;
   max-width: 140px;
   margin-bottom: 10px;
+  transition: transform 0.3s ease;
+}
+
+.item:hover {
+  transform: scale(1.1);
 }
 
 .item:last-child{
@@ -103,45 +109,7 @@
   object-fit: cover;
 }
 
-/* .container {
-  margin-top: 15px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  flex-direction: row;
-  justify-content: space-between;
-  overflow:hidden;
-  position:relative;
-  padding-right: 60px;
-  padding-left: 68px;
-  -webkit-box-pack: justify;
-  
+.link {
+  text-decoration: none; /* Remove hyperlink underline */
+  color: white;
 }
-
-.container2 {
-  display: flex;
-  flex-direction: column;
-  position:relative;
-  margin-right: 40px;
-  contain: layout style;
-  max-width: 120px;
-  margin-bottom: 10px;
-}
-
-.container2 p {
-  font-size: 12px;
-  margin-top: 10px;
-  opacity: 0.8;
-  min-height: 60px;
-  max-width: 100%;
-  word-wrap: break-word;
-} */
-
-
-/* Überlappung der Ecken in der Mitte */
-/* .threePopularMovies img:nth-child(1),
-.threePopularMovies img:nth-child(2),
-.threePopularMovies img:nth-child(3) {
-  z-index: 1;
-  margin: -20px;
-} */
