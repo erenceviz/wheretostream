@@ -17,6 +17,7 @@ function BannerNeu( {movieId}: BannerNeuProps ) {
   const [castData, setCast] = useState<CastData | null>(null);
 
   useEffect(() => {
+    if (typeof movieId === "undefined") return; 
     const getMovieData = async () => {
       setIsLoading(true);
       try {
@@ -81,7 +82,7 @@ function BannerNeu( {movieId}: BannerNeuProps ) {
         <div className={styles.posterAndInfo}>
           <img
             className={styles.poster}
-            src={movieData?.poster_path ? `https://image.tmdb.org/t/p/original${movieData?.poster_path}` : ''}            
+            src={movieData?.poster_path ? `https://image.tmdb.org/t/p/w300${movieData?.poster_path}` : ''}            
           />
           <div className={styles.infoToPoster}>
             <div className={styles.headlineWithBookmark}>
