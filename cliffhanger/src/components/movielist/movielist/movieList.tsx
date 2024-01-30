@@ -96,7 +96,7 @@ const MovieList = () => {
       <div className={styles.container}>
         {filteredData.length > 0 ? (
           filteredData.map((item) => (
-            <Link key={item.id} to={`/movie/${item.id}`} href={`/movie/${item.id}`} className={styles.link}>
+            <Link key={item.id} href={`/movie/${item.id}`} className={styles.link}>
               <div className={styles.container2}>
                 <img
                   className={styles.poster}

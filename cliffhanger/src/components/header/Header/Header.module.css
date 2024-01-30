@@ -1,25 +1,18 @@
 .wrapper {
-  position:relative;
-    display: flex;
-    /* flex-direction: column; */
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    z-index:2;
-    color: white; /* Set your desired text color */
-    margin-top: 10px;
-  }
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 0rem;
+  z-index: 2;
+  margin-top: 10px;
+}
 
- 
-  .searchWrapper{
-    flex:1;
-  }
+.searchWrapper {
+  flex: 1;
+}
 
-  .buttonWrapper{
-    margin-right: 50px;
-  }
- 
-  .logoButton{
-    text-decoration: none;
-    color: white;
-  }
+.logoButton {
+  text-decoration: none;
+  color: white;
+}
