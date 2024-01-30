@@ -106,7 +106,7 @@ function WelcomePage() {
                 <div className={styles.item} key={movie.id}>
                   <div className={styles.imageWrapper}>
                     <img
-                      src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                      src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
                       alt={movie.title}
                     />
                   </div>
@@ -126,7 +126,7 @@ function WelcomePage() {
 
                   <div className={styles.imageWrapper}>
                     <img
-                      src={`https://image.tmdb.org/t/p/original${series.poster_path}`}
+                      src={`https://image.tmdb.org/t/p/w300${series.poster_path}`}
                       alt={series.title}
                     />
                   </div>
@@ -146,7 +146,7 @@ function WelcomePage() {
                 <div className={styles.item} key={movie.id}>
                   <div className={styles.imageWrapper}>
                     <img
-                      src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                      src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
                       alt={movie.title}
                     />
                   </div>

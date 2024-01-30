@@ -6,21 +6,29 @@
   color: #ae26f2;
 }
 .bannerContainer {
-  position: relative;
-
+  position: absolute;
+  width: 100vw;
+  left: 0;
+  height: 600px;
+  display: block;
+  top: 110px;
 }
 .bannerImage {
-  display: block;
+  position: absolute;
+  left: 0px;
   max-height: 600px;
   min-width: 100vw;
   object-fit: cover;
   object-position: 50% 20%;
 }
+.imageBlocker{
+  min-height: 600px;
+}
 .bannerContentBackground {
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   height: 250px;
   background: rgba(255, 255, 255, 0);
 }

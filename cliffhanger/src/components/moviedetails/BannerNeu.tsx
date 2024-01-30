@@ -1,9 +1,9 @@
-import { Button } from "@mui/material";
 import styles from "./Banner.module.css";
+import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { MovieData } from "@/types/MovieData"; 
 import { CastData } from "@/types/CastData";
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 
 interface BannerNeuProps {
   movieId: string | string[] | undefined;
@@ -39,21 +39,23 @@ function BannerNeu( {movieId}: BannerNeuProps ) {
 
 
   if(isLoading){
-    return <div>Loading...</div>; 
+    return (<div>Loading...</div>)
   }
 
   if(error){
-    return <div>Something went wrong! Please try again.</div>
+    return (<div>Something went wrong! Please try again.</div>)
   }
 
   return (
     <>
+            <div className={styles.imageBlocker}>&nbsp;</div>
       <div className={styles.bannerContainer}>
         <img
           className={styles.bannerImage}
           src={movieData?.backdrop_path ? `https://image.tmdb.org/t/p/original${movieData?.backdrop_path}` : ''}          
           alt=""
         />
+
         <div className={styles.bannerContentBackground}>
           <div className={styles.gradient}></div>
           <div className={styles.bannerContent}>
