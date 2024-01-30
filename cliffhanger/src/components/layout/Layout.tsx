@@ -1,6 +1,6 @@
+import styles from "./Layout.module.css";
 import Footer from "../footer/Footer";
 import Header from "../header/Header/Header";
-import styles from "./Layout.module.css";
 
 const Layout = ({ children }) => {
   return (

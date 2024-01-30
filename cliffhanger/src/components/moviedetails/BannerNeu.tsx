@@ -1,23 +1,46 @@
 import styles from "./Banner.module.css";
 import { Button } from "@mui/material";
-import { useEffect, useState } from "react";
-import { MovieData } from "@/types/MovieData"; 
+import { useContext, useEffect, useState } from "react";
+import { MovieData } from "@/types/MovieData";
 import { CastData } from "@/types/CastData";
-// import { useParams } from 'react-router-dom';
+import { BookmarkActionOptions, BookmarkContext } from "@/pages/_app";
 
 interface BannerNeuProps {
   movieId: string | string[] | undefined;
 }
 
-function BannerNeu( {movieId}: BannerNeuProps ) {
+interface BookmarkIconAttributes {
+  className?: string,
+}
+// source: https://github.com/parcel-bundler/parcel/discussions/7910#discussioncomment-5169513
+export const BookmarkIcon: React.FC<BookmarkIconAttributes> = ({ className = '' }: BookmarkIconAttributes) => {
+  return (
+    <svg
+      className={className}
+      xmlns="http://www.w3.org/2000/svg" viewBox="0,0,256,256" width="60px" height="60px">
+      <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style={{ mixBlendMode: "normal" }}>
+        <g transform="scale(8.53333,8.53333)">
+          <path d="M23,27l-8,-7l-8,7v-22c0,-1.105 0.895,-2 2,-2h12c1.105,0 2,0.895 2,2z">
+
+          </path>
+        </g>
+      </g>
+    </svg>
+
+  );
+}
+
+function BannerNeu({ movieId }: BannerNeuProps) {
   // const { id } = useParams();
-  const [error, setError] = useState(); 
-  const [isLoading, setIsLoading] = useState(false); 
+  const [error, setError] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const [movieData, setMovieData] = useState<MovieData | null>(null);
   const [castData, setCast] = useState<CastData | null>(null);
 
+  const { bookmarkState, dispatch } = useContext(BookmarkContext);
+
   useEffect(() => {
-    if (typeof movieId === "undefined") return; 
+    if (typeof movieId === "undefined") return;
     const getMovieData = async () => {
       setIsLoading(true);
       try {
@@ -36,24 +59,38 @@ function BannerNeu( {movieId}: BannerNeuProps ) {
     };
 
     getMovieData();
-  }, [movieId]); 
+  }, [movieId]);
 
 
-  if(isLoading){
+  if (isLoading) {
     return (<div>Loading...</div>)
   }
 
-  if(error){
+  if (error) {
     return (<div>Something went wrong! Please try again.</div>)
   }
 
+  // const bookmarkList:any = [];
+  const movieInList: boolean = Boolean(bookmarkState.movies && movieId && bookmarkState.movies.find((ele) => ele.id === parseInt(movieId as string)));
+  
+  const toggleBookmark = () => {
+    dispatch({
+      type: movieInList ? BookmarkActionOptions.DELETE : BookmarkActionOptions.ADD, payload: {
+        id: movieData!.id,
+        titel: movieData!.title,
+        description: movieData!.overview,
+      }
+    })
+  }
+
+
   return (
     <>
-            <div className={styles.imageBlocker}>&nbsp;</div>
+      <div className={styles.imageBlocker}>&nbsp;</div>
       <div className={styles.bannerContainer}>
         <img
           className={styles.bannerImage}
-          src={movieData?.backdrop_path ? `https://image.tmdb.org/t/p/original${movieData?.backdrop_path}` : ''}          
+          src={movieData?.backdrop_path ? `https://image.tmdb.org/t/p/original${movieData?.backdrop_path}` : ''}
           alt=""
         />
 
@@ -63,14 +100,14 @@ function BannerNeu( {movieId}: BannerNeuProps ) {
             <h2 className={styles.h5}>Watch</h2>
             <h1>{movieData?.title}</h1>
             <div style={{ display: "flex", gap: "5px" }}>
-            {movieData?.genres.map((genre) => (
-                  <p key={genre.id} className={styles.movieMetaData}>
-                    {genre.name}
-                    
-                  </p>
-                ))}
-                <p className={styles.movieMetaData}>{movieData?.release_date.slice(0,4)}</p>
-              
+              {movieData?.genres.map((genre) => (
+                <p key={genre.id} className={styles.movieMetaData}>
+                  {genre.name}
+
+                </p>
+              ))}
+              <p className={styles.movieMetaData}>{movieData?.release_date.slice(0, 4)}</p>
+
             </div>
             <Button className={styles.playTrailerBtn} variant="contained">
               Play Trailer
@@ -82,16 +119,23 @@ function BannerNeu( {movieId}: BannerNeuProps ) {
         <div className={styles.posterAndInfo}>
           <img
             className={styles.poster}
-            src={movieData?.poster_path ? `https://image.tmdb.org/t/p/w300${movieData?.poster_path}` : ''}            
+            src={movieData?.poster_path ? `https://image.tmdb.org/t/p/w300${movieData?.poster_path}` : ''}
           />
           <div className={styles.infoToPoster}>
             <div className={styles.headlineWithBookmark}>
               <h1>{movieData?.title}</h1>
-              <img
+              <svg
                 style={{ height: "40px", width: "auto", marginLeft: "auto" }}
-                src="./bookmark.png"
-                alt="Bookmark"
-              />
+                onClick={toggleBookmark}
+                xmlns="http://www.w3.org/2000/svg" viewBox="0,0,256,256" width="60px" height="60px">
+                <g fill={movieInList ? "gold" : "white"} fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style={{ mixBlendMode: "normal" }}>
+                  <g transform="scale(8.53333,8.53333)">
+                    <path d="M23,27l-8,-7l-8,7v-22c0,-1.105 0.895,-2 2,-2h12c1.105,0 2,0.895 2,2z">
+
+                    </path>
+                  </g>
+                </g>
+              </svg>
             </div>
             <h4 className={styles.h4}>{movieData?.runtime} minutes</h4>
             <p style={{ marginTop: "20px" }}>
@@ -107,6 +151,7 @@ function BannerNeu( {movieId}: BannerNeuProps ) {
                 className={styles.imgPlatform}
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Amazon_Prime_Logo.svg/2560px-Amazon_Prime_Logo.svg.png"
                 alt=""
+
               />
               <p>Prime Video</p>
               <a href="">
@@ -137,17 +182,17 @@ function BannerNeu( {movieId}: BannerNeuProps ) {
         <div className={styles.leadingActors}>
           <h4 style={{ marginBottom: "1rem" }}>Leading Actors</h4>
           <div className={styles.tableLeadingActors}>
-          {castData?.cast.slice(0, 4).map((actor) => (
-            <div key={actor.id} className={styles.castDiv}>
-            <img
-              key={actor.id}
-              className={styles.posterActor}
-              src={`https://www.themoviedb.org/t/p/w276_and_h350_face${actor.profile_path}`}
-              alt={actor.name}
-            />
-            <p>{actor.name}</p>
-            </div>
-          ))}
+            {castData?.cast.slice(0, 4).map((actor) => (
+              <div key={actor.id} className={styles.castDiv}>
+                <img
+                  key={actor.id}
+                  className={styles.posterActor}
+                  src={`https://www.themoviedb.org/t/p/w276_and_h350_face${actor.profile_path}`}
+                  alt={actor.name}
+                />
+                <p>{actor.name}</p>
+              </div>
+            ))}
 
           </div>
         </div>
