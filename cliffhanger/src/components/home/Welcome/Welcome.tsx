@@ -15,19 +15,19 @@ function WelcomePage() {
   useEffect(() => {
     // Popular Movies
     const getPopularMovies = async () => {
-        setIsLoading(true);
-        try {
-          const response = await fetch(
-            `https://api.themoviedb.org/3/movie/popular?language=en-US&api_key=${process.env.NEXT_PUBLIC_API_KEY}`
-          );
-          const popularMoviesData: PopularMovies = await response.json();
-          console.log(popularMoviesData);
-          setPopularMovies(popularMoviesData);
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        } finally {
-          setIsLoading(false);
-        }
+      setIsLoading(true);
+      try {
+        const response = await fetch(
+          `https://api.themoviedb.org/3/movie/popular?language=en-US&api_key=${process.env.NEXT_PUBLIC_API_KEY}`
+        );
+        const popularMoviesData: PopularMovies = await response.json();
+        console.log(popularMoviesData);
+        setPopularMovies(popularMoviesData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     // Popular Series
@@ -66,8 +66,8 @@ function WelcomePage() {
     }
 
     getPopularMovies();
-    getPopularSeries(); 
-    getReleasedSoon(); 
+    getPopularSeries();
+    getReleasedSoon();
   }, []);
 
   return (
@@ -101,16 +101,17 @@ function WelcomePage() {
         <div className={styles.container}>
           <h4>Popular Movies</h4>
           <div className={styles.singleListDiv}>
-            {popularMovies?.results.slice(0,8).map((movie) => (
+            {popularMovies?.results.slice(0, 8).map((movie) => (
               <Link key={movie.id} href={`/movie/${movie.id}`} className={styles.link}>
-              <div className={styles.item} key={movie.id}>
-                <img
-                  src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-                  alt={movie.title}
-                />
-                <p>{movie.title}</p>
-              </div>
-              <a/>
+                <div className={styles.item} key={movie.id}>
+                  <div className={styles.imageWrapper}>
+                    <img
+                      src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                      alt={movie.title}
+                    />
+                  </div>
+                  <p>{movie.title}</p>
+                </div>
               </Link>
             ))}
           </div>
@@ -119,35 +120,38 @@ function WelcomePage() {
         <div className={styles.container}>
           <h4>Popular Series</h4>
           <div className={styles.singleListDiv}>
-            {popularSeries?.results.slice(0,8).map((series) => (
+            {popularSeries?.results.slice(0, 8).map((series) => (
               <Link key={series.id} href={`/movie/${series.id}`} className={styles.link}>
-              <div className={styles.item} key={series.id}>
-                <img
-                  src={`https://image.tmdb.org/t/p/original${series.poster_path}`}
-                  alt={series.title}
-                />
-                <p>{series.original_name}</p>
-              </div>
-              <a/>
+                <div className={styles.item} key={series.id}>
+
+                  <div className={styles.imageWrapper}>
+                    <img
+                      src={`https://image.tmdb.org/t/p/original${series.poster_path}`}
+                      alt={series.title}
+                    />
+                  </div>
+                  <p>{series.original_name}</p>
+                </div>
               </Link>
             ))}
           </div>
         </div>
-        
+
         <div className={styles.container}>
           <h4>Released Soon</h4>
           <div className={styles.singleListDiv}>
-            {releasedSoon?.results.slice(0,8).map((movie) => (
+            {releasedSoon?.results.slice(0, 8).map((movie) => (
               <Link key={movie.id} href={`/movie/${movie.id}`} className={styles.link}>
                 <a href=""></a>
-              <div className={styles.item} key={movie.id}>
-                <img
-                  src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-                  alt={movie.title}
-                />
-                <p>{movie.title}</p>
-              </div>
-              <a/>
+                <div className={styles.item} key={movie.id}>
+                  <div className={styles.imageWrapper}>
+                    <img
+                      src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                      alt={movie.title}
+                    />
+                  </div>
+                  <p>{movie.title}</p>
+                </div>
               </Link>
             ))}
           </div>

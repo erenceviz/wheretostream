@@ -1,37 +1,32 @@
-// Header.js
-
-import Button from "@/components/button/Button";
+import style from "./Header.module.css";
 import React, { useState } from "react";
-import SearchBar from "../Search/SearchBar/SearchBar";
+import Link from "next/link";
 import Logo from "../Logo/Logo";
-import { SearchResultList } from "../Search/SearchResultList/SearchResultList";
-import S from "./Header.module.css";
 import Search from "../Search/Search/Search";
 import YourComponent from "@/components/button/Button";
-import Link from "next/link";
 
 
 function Header() {
   const [results, setResults] = useState([]);
 
   return (
-    <div className={S.wrapper}>
-      <Link className={S.logoButton} href="/" passHref>
+    <div className={style.wrapper}>
+      <Link className={style.logoButton} href="/" passHref>
         <Logo />
       </Link>
-      
-      <div className={S.searchWrapper}>
-        <Search/>
+
+      <div className={style.searchWrapper}>
+        <Search />
       </div>
-      <div className={S.buttonWrapper}>
+      <div className={style.buttonWrapper}>
         <Link href="/movies" passHref>
           <YourComponent buttonText="Movies" buttonType="movies" />
         </Link>
         <Link href="/movieList" passHref>
-        <YourComponent buttonText="TV Shows" buttonType="tvShows" />
+          <YourComponent buttonText="TV Shows" buttonType="tvShows" />
         </Link>
         <YourComponent buttonText="Make a list!" buttonType="makeList" />
-        </div>
+      </div>
     </div>
   );
 }
