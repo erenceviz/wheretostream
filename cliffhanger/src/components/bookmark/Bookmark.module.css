@@ -1,0 +1,33 @@
+.bookmarkedHeadline {
+  margin-bottom: 3rem;
+  margin-top: 2.5rem;
+  color: #ae26f2;
+}
+
+.bookmarkContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.bookmarkedMovie {
+  display: flex;
+  border-radius: 5px;
+  gap: 2rem;
+  border: 1px solid grey;
+  box-shadow: 3px 2px 8px 0px rgba(168,168,168,0.2);
+}
+
+.bookmarkedMovie img {
+  width: 110px;
+  height: 160px;
+  object-fit: cover;
+}
+.bookmarkedContent {
+  color: #dedede;
+}
+
+.bookmarkedContent h4 {
+  color: #ae26f2;
+  margin: 1rem 0rem;
+}

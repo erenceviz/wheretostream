@@ -79,6 +79,7 @@ function BannerNeu({ movieId }: BannerNeuProps) {
         id: movieData!.id,
         titel: movieData!.title,
         description: movieData!.overview,
+        poster_path: movieData!.poster_path,
       }
     })
   }

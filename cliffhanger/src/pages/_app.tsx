@@ -22,6 +22,7 @@ interface IMovie {
   id: number; 
   titel: string; 
   description: string;
+  poster_path: string;
 }
 
 function manageBookmark(state: BookmarkState, action: BookmarkAction) {
