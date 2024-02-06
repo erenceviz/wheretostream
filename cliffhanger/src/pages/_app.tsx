@@ -11,7 +11,7 @@ export enum BookmarkActionOptions {
 
 interface BookmarkAction {
   type: BookmarkActionOptions;
-  payload: IMovie;
+  payload: IMovie | null;
 }
 
 interface BookmarkState {
@@ -36,7 +36,7 @@ function manageBookmark(state: BookmarkState, action: BookmarkAction) {
     case BookmarkActionOptions.DELETE:
       return {
         ...state,
-        movies: state.movies.filter( (ele) => ele.id !== action.payload.id)
+        movies: state.movies.filter( (ele) => ele.id !== action.payload?.id)
       };
     case BookmarkActionOptions.RESET: 
       return {

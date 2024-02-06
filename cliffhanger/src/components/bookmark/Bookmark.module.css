@@ -8,6 +8,12 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.emptyListWarning{
+  align-self: center;
+  margin-top: 2rem;
 }
 
 .bookmarkedMovie {
@@ -30,4 +36,9 @@
 .bookmarkedContent h4 {
   color: #ae26f2;
   margin: 1rem 0rem;
+}
+.clearListBtn{
+  max-width: 120px;
+  background-color: #ae26f2;
+  align-self: self-end;
 }
