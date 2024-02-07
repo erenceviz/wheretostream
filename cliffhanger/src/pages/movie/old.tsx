@@ -1,5 +1,5 @@
 // pages/[id].tsx
-import BannerNeu from "@/components/moviedetails/BannerNeu";
+import DetailsPage from "@/components/moviedetails/DetailsPage";
 import Layout from "@/components/layout/Layout";
 import { useRouter } from 'next/router';  // Import useRouter from next/router
 
@@ -9,7 +9,7 @@ const MoviesPage = () => {
 
   return (
     <Layout>
-      <BannerNeu movieId={id} />
+      <DetailsPage movieId={id} />
     </Layout>
   );
 };

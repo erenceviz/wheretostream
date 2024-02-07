@@ -137,4 +137,5 @@
   text-align: center;
   margin-right: 30px;
   gap:10px;
+  min-width: 160px;
 }
