@@ -5,6 +5,7 @@ import { MovieData } from "@/types/MovieData";
 import { CastData } from "@/types/CastData";
 import { BookmarkActionOptions, BookmarkContext } from "@/pages/_app";
 import { IMovieTrailerResponse } from "@/types/MovieTrailer";
+import Modal from 'react-modal';
 
 interface IDetailsPage {
   movieId: string | string[] | undefined;
@@ -14,17 +15,18 @@ interface BookmarkIconAttributes {
   className?: string;
 }
 
+
 // source: https://github.com/parcel-bundler/parcel/discussions/7910#discussioncomment-5169513
 export const BookmarkIcon: React.FC<BookmarkIconAttributes> = ({
   className = "",
 }: BookmarkIconAttributes) => {
   return (
     <svg
-      className={className}
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0,0,256,256"
-      width="60px"
-      height="60px"
+    className={className}
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0,0,256,256"
+    width="60px"
+    height="60px"
     >
       <g
         fill="#ffffff"
@@ -41,7 +43,7 @@ export const BookmarkIcon: React.FC<BookmarkIconAttributes> = ({
         fontSize="none"
         textAnchor="none"
         style={{ mixBlendMode: "normal" }}
-      >
+        >
         <g transform="scale(8.53333,8.53333)">
           <path d="M23,27l-8,-7l-8,7v-22c0,-1.105 0.895,-2 2,-2h12c1.105,0 2,0.895 2,2z"></path>
         </g>
@@ -57,7 +59,8 @@ function DetailsPage({ movieId }: IDetailsPage) {
   const [movieData, setMovieData] = useState<MovieData | null>(null);
   const [castData, setCast] = useState<CastData | null>(null);
   const [videoData, setTrailer] = useState<IMovieTrailerResponse | null >(null);
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
   const { bookmarkState, dispatch } = useContext(BookmarkContext);
 
   useEffect(() => {
@@ -122,25 +125,20 @@ function DetailsPage({ movieId }: IDetailsPage) {
     });
   };
 
-  function openTrailerInNewTab(trailerLink: string) {
-    window.open(trailerLink, "_blank");
-  }
-
-  // TESTWEISE --> WIEDER LÖSCHEN
-  // const trailerKey = "7u3zBVAxx_w";
+  // function openTrailerInNewTab(trailerLink: string) {
+  //   window.open(trailerLink, "_blank");
+  // }
   
   function findTrailerKey(responseData : IMovieTrailerResponse) {
-    // Durchlaufe das Ergebnis-Array und finde das Objekt mit dem Typ "Trailer"
     const trailerObject = responseData?.results.find(
       (item) => item.type === "Trailer"
     );
 
-    // Wenn ein Objekt mit dem Typ "Trailer" gefunden wurde, gebe den Schlüssel zurück, sonst null
     return trailerObject ? trailerObject.key : null;
   }
 
   // Verwende die Funktion, um den Trailer-Schlüssel zu finden
-  const trailerKey = findTrailerKey(videoData);
+  const trailerKey = findTrailerKey(videoData); // https://www.youtube.com/watch?v=${trailerKey}
 
   return (
     <>
@@ -174,18 +172,30 @@ function DetailsPage({ movieId }: IDetailsPage) {
             <Button
               className={styles.playTrailerBtn}
               variant="contained"
-              onClick={() =>
-                openTrailerInNewTab(
-                  `https://www.youtube.com/watch?v=${trailerKey}`
-                )
-              }
-            >
-              Play Trailer
+              onClick={() => setIsModalOpen(true)}
+              >Play Trailer
             </Button>
           </div>
         </div>
       </div>
       <div className={styles.movieDetails}>
+      {isModalOpen && (
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={() => setIsModalOpen(false)}
+        contentLabel="Trailer Modal"
+      >
+        {trailerKey && (
+          <iframe
+            width="560"
+            height="315"
+            src={`https://www.youtube.com/embed/${trailerKey}`}
+            title="YouTube video player"
+            allowFullScreen
+          ></iframe>
+        )}
+      </Modal>
+    )}
         <div className={styles.posterAndInfo}>
           <img
             className={styles.poster}
