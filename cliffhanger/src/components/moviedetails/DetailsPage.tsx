@@ -6,6 +6,8 @@ import { CastData } from "@/types/CastData";
 import { BookmarkActionOptions, BookmarkContext } from "@/pages/_app";
 import { IMovieTrailerResponse } from "@/types/MovieTrailer";
 import Modal from 'react-modal';
+import { StreamingService } from "@/pages/api/streamingService";
+import { Stream } from "stream";
 
 interface IDetailsPage {
   movieId: string | string[] | undefined;
@@ -60,7 +62,9 @@ function DetailsPage({ movieId }: IDetailsPage) {
   const [castData, setCast] = useState<CastData | null>(null);
   const [videoData, setTrailer] = useState<IMovieTrailerResponse | null >(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+  const [streamingServices, setStreamingServices] = useState<StreamingService[]>([]); 
+  const [platforms, setPlatforms] = useState<StreamingService[]>([]);
+
   const { bookmarkState, dispatch } = useContext(BookmarkContext);
 
   useEffect(() => {
@@ -86,16 +90,39 @@ function DetailsPage({ movieId }: IDetailsPage) {
         const videoData: IMovieTrailerResponse = await videoResponse.json();
         setTrailer(videoData);
 
+        const streamingResponse = await fetch("/api/streamingService");
+        if (!streamingResponse.ok) {
+          throw new Error("Failed to fetch streaming services");
+        }
+        const streamingData: StreamingService[] = await streamingResponse.json();
+        setStreamingServices(streamingData);
+
+        console.log("streaming data",streamingData);
+
         console.log("Trailer Data: ", videoData);
+
       } catch (e: any) {
         setError(e);
       } finally {
         setIsLoading(false);
       }
+      // const foundPlatforms = findStreamingPlatforms();
+      //   setPlatforms(foundPlatforms);
+
+      //   console.log("foundPlatforms",foundPlatforms);
+        
     };
 
     getMovieData();
   }, [movieId]);
+
+    useEffect(() => {
+      if (movieData && movieData.title && streamingServices.length > 0) {
+        const foundPlatforms = findStreamingPlatforms();
+        setPlatforms(foundPlatforms);
+        console.log("foundPlatforms", foundPlatforms);
+      }
+    }, [movieData, streamingServices]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -104,6 +131,21 @@ function DetailsPage({ movieId }: IDetailsPage) {
   if (error) {
     return <div>Something went wrong! Please try again.</div>;
   }
+
+  const findStreamingPlatforms = () => {
+    if (!movieData?.title) return []; 
+
+    const platforms = streamingServices.filter(service => service.movies.includes(movieData?.title));
+    console.log("available platforms:", platforms)
+    return platforms;
+  };
+
+  // Function to render streaming platform links/buttons
+  // const renderStreamingPlatforms = () => {
+  //   const platforms = findStreamingPlatforms();
+  //   if (platforms.length === 0) {
+  //     return <p>This movie is not available on any streaming platform.</p>;
+  //   }};
 
   const movieInList: boolean = Boolean(
     bookmarkState.movies &&
@@ -139,7 +181,7 @@ function DetailsPage({ movieId }: IDetailsPage) {
 
   // Verwende die Funktion, um den Trailer-Schlüssel zu finden
   const trailerKey = findTrailerKey(videoData); // https://www.youtube.com/watch?v=${trailerKey}
-
+  
   return (
     <>
       <div className={styles.imageBlocker}>&nbsp;</div>
@@ -246,37 +288,28 @@ function DetailsPage({ movieId }: IDetailsPage) {
           <h4 style={{ marginBottom: "1rem" }}>
             Where to watch {movieData?.title}
           </h4>
+          
           <div className={styles.tableWhereToWatch}>
-            <div className={styles.watchItem}>
-              <img
-                className={styles.imgPlatform}
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Amazon_Prime_Logo.svg/2560px-Amazon_Prime_Logo.svg.png"
-                alt=""
-              />
-              <p>Prime Video</p>
-              <a href="">
+            {platforms.map(service => (
+              <div key={service.id} className={styles.watchItem}>
+                {/* Display streaming service logo */}
                 <img
-                  className={styles.playButton}
-                  src="./play.png"
-                  alt="Play Button"
+                  className={styles.imgPlatform}
+                  // src={`LOGO_URL/${service.name}`} 
+                  alt={service.name}
                 />
-              </a>
-            </div>
-            <div className={styles.watchItem}>
-              <img
-                className={styles.imgPlatform}
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Amazon_Prime_Logo.svg/2560px-Amazon_Prime_Logo.svg.png"
-                alt=""
-              />
-              <p>Prime Video</p>
-              <a href="">
-                <img
-                  className={styles.playButton}
-                  src="./play.png"
-                  alt="Play Button"
-                />
-              </a>
-            </div>
+                <p>{service.name}</p>
+                {/* Link to the streaming service */}
+                <a href={service.url} target="_blank" rel="noopener noreferrer">
+                  {/* Placeholder play button */}
+                  <img
+                    className={styles.playButton}
+                    src="./play.png"
+                    alt="Play Button"
+                  />
+                </a>
+              </div>
+            ))}
           </div>
         </div>
         <div className={styles.leadingActors}>

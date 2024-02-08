@@ -33,11 +33,12 @@ const MovieList = () => {
         setTvData(tvData);
 
         const fetchedMovieGenres:GenreData = await fetchMovieGenres();
+        console.log(fetchedMovieGenres)
         // const movieResponse = await fetch(
         //   `https://api.themoviedb.org/3/genre/movie/list?language=en-US&api_key=${process.env.NEXT_PUBLIC_API_KEY}`
         // );
         // const fetchedMovieGenres = await movieResponse.json();
-        console.log(fetchedMovieGenres)
+        
         setMovieGenres(fetchedMovieGenres);
 
         const fetchedTVGenres:GenreData = await fetchTVGenres();
@@ -57,8 +58,8 @@ const MovieList = () => {
   };
   
   const allData = [...(movieData?.results || []), ...(tvData?.results || [])];
-  const allGenres = [...movieGenres.genres|| []]
-  console.log("bobby rook rokk", allGenres)
+  const allGenres = [...movieGenres.genres || [], ...tvGenres.genres || []]
+  console.log(movieGenres || "nonoe")
 
   const filteredData = allData.filter((item) => {
     if (filter === "Movies & TV Shows") {
@@ -68,6 +69,8 @@ const MovieList = () => {
     } else if (filter === "TV Shows") {
       return 'original_name' in item;
     }
+
+    console.log(allGenres)
     // Handle other filters if needed
     return false;
   });
