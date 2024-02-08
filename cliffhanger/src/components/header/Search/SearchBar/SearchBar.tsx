@@ -31,10 +31,7 @@ export const SearchBar = ({ setResults }) => {
   };
 
   const handleResultClick = (result: SearchResult) => {
-    // Handle the click on the search result
-    // ...
-
-    // Reset the search term and clear the results
+    
     setInputText("");
     setResults([]);
   };
