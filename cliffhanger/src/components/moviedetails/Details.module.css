@@ -92,26 +92,35 @@
   width: 50%;
 }
 .tableWhereToWatch {
-  display: flex;
-  gap: 1rem;
+    display: flex;
+    gap: 1rem;
+   flex-wrap: wrap;
 }
 .watchItem {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  color: #ae26f2;
+  color: white;
   /* border: 1px violet solid; */
   border-radius: 15px;
   background-color: rgba(225, 225, 225, 0.25);
-  max-width: 250px;
+  max-width: 330px;
   padding: 10px;
+}
+
+.watchItem p{
+  font-size: 14px;
+  margin-left: 10px;
 }
 .imgPlatform {
   width: auto;
   height: 40px;
 }
 .playButton {
-  margin-left: 0.5rem;
+  margin-left: 0.9rem;
+  margin-top: 2px;
+  margin-right: 10px;
   width: 30px;
   height: auto;
   object-fit: cover;
@@ -139,4 +148,9 @@
   margin-right: 30px;
   gap: 10px;
   min-width: 160px;
+}
+
+.imgPlatform{
+  margin-left: 5px;
+  width:60px;
 }

@@ -1,9 +1,8 @@
-// pages/[id].tsx
 import DetailsPage from "@/components/moviedetails/DetailsPage";
 import Layout from "@/components/layout/Layout";
 import { useRouter } from 'next/router';  // Import useRouter from next/router
 
-const MoviesPage = (): React.JSX.Element => {
+const TvPage = (): React.JSX.Element => {
 
   const router = useRouter();  // Initialize useRouter
   console.log("Router", router.query)
@@ -17,4 +16,4 @@ const MoviesPage = (): React.JSX.Element => {
 };
 
 
-export default MoviesPage;
+export default TvPage;

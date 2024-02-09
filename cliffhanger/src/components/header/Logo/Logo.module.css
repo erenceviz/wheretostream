@@ -8,3 +8,16 @@
     margin-top: 5px;
     margin-right: 10px;
   }
+
+  @media (max-width: 768px) {
+    .wrapper {
+      margin-right: 5px; /* Decrease margin for smaller screens */
+        font-size: 8px;
+    }
+  
+    .logo {
+      margin-top: 3px; /* Decrease margin-top for smaller screens */
+      margin-right: 5px; /* Decrease margin-right for smaller screens */
+      width:20px;
+    }
+  }

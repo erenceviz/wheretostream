@@ -19,11 +19,11 @@ function Header() {
         <Search />
       </div>
       <div className={style.buttonWrapper}>
-        <Link href="/movies" passHref>
+        {/* <Link href="/movies" passHref>
           <YourComponent buttonText="Movies" buttonType="movies" />
-        </Link>
+        </Link> */}
         <Link href="/movieList" passHref>
-          <YourComponent buttonText="TV Shows" buttonType="tvShows" />
+          <YourComponent buttonText="Movies & TV Shows" buttonType="tvShows" />
         </Link>
         <Link href="/watchlist">
         <YourComponent buttonText="Make a list!" buttonType="makeList" />

@@ -4,7 +4,9 @@ import { MovieListData } from "@/types/MovieListData";
 import { TvListData } from "@/types/TvListData";
 import { GenreData, TvGenre, MovieGenre } from "@/types/GenreData";
 import styles from "./movieList.module.css";
-import { fetchMovieGenres, fetchTVGenres } from "../genreAPI/fetchGenres";
+import { fetchMovieGenres, fetchTVGenres } from "../fetchAPI/fetchGenres";
+import { fetchMovieData, fetchTvData } from "../fetchAPI/fetchData";
+import RandomMovieBanner from "@/components/movielist/randomMovieBanner/RandomMovieBanner";
 import Link from 'next/link';
 
 
@@ -13,7 +15,7 @@ const MovieList = () => {
   const [movieData, setMovieData] = useState<MovieListData | null>(null);
   const [tvData, setTvData] = useState<TvListData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [filter, setFilter] = useState("all");
+  const [filter, setFilter] = useState("Movies & TV Shows");
   const [genreFilter, setGenreFilter] = useState('')
   const [movieGenres, setMovieGenres] = useState<GenreData>({ genres: [] });
   const [tvGenres, setTvGenres] = useState<GenreData>({ genres: [] });
@@ -23,21 +25,22 @@ const MovieList = () => {
     const getMovieData = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&api_key=${process.env.NEXT_PUBLIC_API_KEY}`);
-        const movieData: MovieListData = await response.json();
+        // const response = await fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&api_key=${process.env.NEXT_PUBLIC_API_KEY}`);
+        const movieData: MovieListData = await fetchMovieData();
         setMovieData(movieData);
 
-        const tvresponse = await fetch(`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc&api_key=${process.env.NEXT_PUBLIC_API_KEY}`);
-        const tvData: TvListData = await tvresponse.json();
+        // const tvresponse = await fetch(`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc&api_key=${process.env.NEXT_PUBLIC_API_KEY}`);
+        const tvData: TvListData = await fetchTvData();
         
         setTvData(tvData);
 
         const fetchedMovieGenres:GenreData = await fetchMovieGenres();
+        console.log(fetchedMovieGenres)
         // const movieResponse = await fetch(
         //   `https://api.themoviedb.org/3/genre/movie/list?language=en-US&api_key=${process.env.NEXT_PUBLIC_API_KEY}`
         // );
         // const fetchedMovieGenres = await movieResponse.json();
-        console.log(fetchedMovieGenres)
+        
         setMovieGenres(fetchedMovieGenres);
 
         const fetchedTVGenres:GenreData = await fetchTVGenres();
@@ -57,8 +60,8 @@ const MovieList = () => {
   };
   
   const allData = [...(movieData?.results || []), ...(tvData?.results || [])];
-  const allGenres = [...movieGenres.genres|| []]
-  console.log("bobby rook rokk", allGenres)
+  // const allGenres = [...movieGenres.genres || [], ...tvGenres.genres || []]
+  // console.log(movieGenres || "nonoe")
 
   const filteredData = allData.filter((item) => {
     if (filter === "Movies & TV Shows") {
@@ -68,6 +71,8 @@ const MovieList = () => {
     } else if (filter === "TV Shows") {
       return 'original_name' in item;
     }
+
+    // console.log(allGenres)
     // Handle other filters if needed
     return false;
   });
@@ -76,27 +81,28 @@ const MovieList = () => {
 
   return (
     <div>
+      <RandomMovieBanner movieData={movieData} />
       <div className={styles.filterButtonContainer}>
-        <FilterButton
+        {/* <FilterButton
           label={"Genre"}
           options={["All", "Action", "History", "Drama"]}
           onSelect={(newFilter) => setFilter(newFilter)}
-        />
+        /> */}
         <FilterButton
-          label={"Type"}
+          label={"Movies & TV Shows"}
           options={["Movies & TV Shows", "Movies", "TV Shows"]}
           onSelect={(newFilter) => handleFilterChange(newFilter)}
         />
-        <FilterButton
+        {/* <FilterButton
           label={"Service"}
           options={["Every Service", "Netflix", "Amazon Prime", "hulu", "Disney Plus"]}
           onSelect={(newFilter) => console.log("Service filter:", newFilter)}
-        />
+        /> */}
       </div>
       <div className={styles.container}>
         {filteredData.length > 0 ? (
           filteredData.map((item) => (
-            <Link key={item.id} href={`/movie/${item.id}`} className={styles.link}>
+            <Link key={item.id} className={styles.link} href={ 'original_name' in item ? `/tv/${item.id}` : `/movie/${item.id}`} passHref>
               <div className={styles.container2}>
                 <img
                   className={styles.poster}

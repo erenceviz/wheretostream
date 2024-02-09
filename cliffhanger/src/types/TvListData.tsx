@@ -5,5 +5,5 @@ export interface TvListData {
         id: number; 
         genre_ids: number[];
         original_name:string;
-    }[]
+    }[];
 } 
