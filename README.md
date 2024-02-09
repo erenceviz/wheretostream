@@ -92,6 +92,7 @@ Benutzer haben auch die Möglichkeit, Filme ihrer persönlichen Watchlist hinzuz
 ## Contact
 
 Vivien Berg - vivien.berg@student.hs-rm.de
+ <br />
 Eren Ceviz - eren.ceviz@student.hs-rm.de
 
 
