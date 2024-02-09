@@ -3,6 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 export interface StreamingService  {
     id: number;
     name: string;
+    title: string;
     url: string;
     movies: string[]; // Array of movie titles available on the streaming service
 };
@@ -17,25 +18,29 @@ interface TVApiResponse {
 const streamingServiceData: StreamingService[] = [
     {
         id: 1,
-        name: 'Netflix',
+        name: 'netflix',
+        title: 'Netflix',
         url: 'https://www.netflix.com/',
         movies: []
     },
     {
         id: 2,
-        name: 'Amazon Prime Video',
+        name: 'amazon_prime',
+        title: 'Amazon Prime',
         url: 'https://www.amazon.de/gp/video/storefront?contentId=IncludedwithPrime&contentType=merch&merchId=IncludedwithPrime',
         movies: []
     },
     {
         id: 3,
-        name: 'Disney Plus',
+        name: 'disney_plus',
+        title: 'Disney Plus',
         url: 'https://www.disneyplus.com/de-de',
         movies: []
     },
     {
         id: 4,
-        name: 'Hulu',
+        name: 'hulu',
+        title: 'Hulu',
         url: 'https://www.hulu.com/',
         movies: []
     },

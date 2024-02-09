@@ -295,16 +295,17 @@ function DetailsPage({ movieId }: IDetailsPage) {
                 {/* Display streaming service logo */}
                 <img
                   className={styles.imgPlatform}
-                  // src={`LOGO_URL/${service.name}`} 
+                  src={`https://img.rgstatic.com/service-logos/${service.name}.svg`} 
                   alt={service.name}
+                  
                 />
-                <p>{service.name}</p>
+                <p>{service.title}</p>
                 {/* Link to the streaming service */}
                 <a href={service.url} target="_blank" rel="noopener noreferrer">
                   {/* Placeholder play button */}
                   <img
                     className={styles.playButton}
-                    src="./play.png"
+                    src="/play.png" 
                     alt="Play Button"
                   />
                 </a>
