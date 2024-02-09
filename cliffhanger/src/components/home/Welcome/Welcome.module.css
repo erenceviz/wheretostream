@@ -80,6 +80,26 @@
   justify-content: space-between;
   
 }
+@media (max-width: 768px) {
+  .singleListDiv {
+    /* Adjust styles for smaller screens */
+    overflow-x: auto;
+    /* You can add more responsive styles here */
+  }
+}
+@media (max-width: 768px) {
+  .openerContent {
+    margin: 2rem auto; /* Adjust margin for better spacing */
+  }
+
+  .lists {
+    gap: 3rem; /* Increase gap between list items */
+  }
+
+  .item {
+    width: 140px; /* Decrease item width for better fit on smaller screens */
+  }
+}
 
 .item {
   display: flex;
@@ -96,15 +116,17 @@
 }
 
 .item .imageWrapper {
+  display: block;
   height: auto;
   width: 100%;
   overflow: hidden;
 }
 
 .imageWrapper img {
+  
   height: 100%;
   width: 100%;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease-in-out;
 }
 
 .link {

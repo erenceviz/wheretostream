@@ -18,3 +18,13 @@
     margin-left: 15px;
     outline:none;
 }
+
+@media (max-width: 768px) {
+    .inputWrapper {
+      height: 20px; /* Decrease height for smaller screens */
+    }
+  
+    .input {
+      font-size: 8px; /* Decrease font size for smaller screens */
+    }
+  }

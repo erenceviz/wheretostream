@@ -78,9 +78,11 @@ function WelcomePage() {
             Finde Filme und Serien auf <br /> deinen gewünschten <br />
             Streaming-Portalen
           </h2>
-          <Button className={styles.getStartedBtn} variant="contained">
-            Get Started!
-          </Button>
+          <Link href="/movieList" passHref>
+            <Button className={styles.getStartedBtn} variant="contained">
+              Get Started!
+            </Button>
+          </Link>
         </div>
         <div className={styles.threePopularMovies}>
           <img

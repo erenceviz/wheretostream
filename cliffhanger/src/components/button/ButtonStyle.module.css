@@ -6,4 +6,10 @@
     font-size: 14px;
     border-radius: 15px;
   }
-  
+  @media (max-width: 768px) {
+    .customButton {
+      height: 15px; /* Adjusted height for smaller screens */
+      width: 90px; /* Adjusted width for smaller screens */
+      font-size: 10px; /* Adjusted font-size for smaller screens */
+    }
+  }
