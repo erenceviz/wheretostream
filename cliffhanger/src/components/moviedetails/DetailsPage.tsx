@@ -172,12 +172,13 @@ export function DetailsPage({ itemId }: IDetailsPage) {
   //   }};
 
   const movieInList: boolean = Boolean(
-    bookmarkState.movies &&
+    (bookmarkState.movies &&
       itemId &&
-      bookmarkState.movies.find((ele) => ele.id === parseInt(itemId as string))
-    movieId &&
-    bookmarkState.movies.find((ele) => ele.id === parseInt(movieId as string))
-  );
+      bookmarkState.movies.find((ele) => ele.id === parseInt(itemId as string))) ||
+        (movieId &&
+          bookmarkState.movies.find((ele) => ele.id === parseInt(movieId as string)))
+      );
+      
 
   const toggleBookmark = () => {
     dispatch({
@@ -209,8 +210,9 @@ export function DetailsPage({ itemId }: IDetailsPage) {
   const trailerKey = findTrailerKey(videoData); // https://www.youtube.com/watch?v=${trailerKey}
   
   return (
-    <>
-      <div className={styles.imageBlocker}>&nbsp;</div>
+      <>
+    <div className={styles.imageBlocker}>&nbsp;</div>
+    
     <div className={styles.bannerContainer}>
       <img
         className={styles.bannerImage}
@@ -306,11 +308,10 @@ export function DetailsPage({ itemId }: IDetailsPage) {
                 </g>
               </g>
             </svg>
-          </div>
+          
           <h4 className={styles.h4}>{movieData?.runtime || (tvData && tvData?.episode_run_time[0])} minutes</h4>
           <p style={{ marginTop: "20px" }}>{movieData?.overview || tvData?.overview}</p>
-        </div>
-      </div>
+   
               <p className={styles.movieMetaData}>
                 {movieData?.release_date.slice(0, 4)}
               </p>
