@@ -28,12 +28,8 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
+    <li><a href="#ordnerstruktur">Ordnerstruktur</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -71,7 +67,7 @@ Benutzer haben auch die Möglichkeit, Filme ihrer persönlichen Watchlist hinzuz
 
 1. Clone the repo
    ```sh
-   git clone [https://github.com/github_username/repo_name.git](https://github.com/erenceviz/wheretostream.git)
+   git clone https://github.com/erenceviz/wheretostream.git
    ```
 2. navigate to folder "cliffhanger"
    ```sh
