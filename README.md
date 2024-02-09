@@ -86,6 +86,9 @@ Benutzer haben auch die Möglichkeit, Filme ihrer persönlichen Watchlist hinzuz
    const NEXT_PUBLIC_API_KEY = 'ENTER YOUR API';
    ```
 
+## Ordnerstruktur
+<img width="228" alt="Bildschirmfoto 2024-02-09 um 17 59 37" src="https://github.com/erenceviz/wheretostream/assets/100580311/ec77c793-cfa9-42fc-9cea-ce0272ac5c8a">
+
    
 
 <!-- CONTACT -->
