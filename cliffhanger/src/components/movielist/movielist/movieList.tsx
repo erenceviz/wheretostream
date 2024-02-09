@@ -6,6 +6,7 @@ import { GenreData, TvGenre, MovieGenre } from "@/types/GenreData";
 import styles from "./movieList.module.css";
 import { fetchMovieGenres, fetchTVGenres } from "../fetchAPI/fetchGenres";
 import { fetchMovieData, fetchTvData } from "../fetchAPI/fetchData";
+import RandomMovieBanner from "@/components/movielist/randomMovieBanner/RandomMovieBanner";
 import Link from 'next/link';
 
 
@@ -80,6 +81,7 @@ const MovieList = () => {
 
   return (
     <div>
+      <RandomMovieBanner movieData={movieData} />
       <div className={styles.filterButtonContainer}>
         {/* <FilterButton
           label={"Genre"}

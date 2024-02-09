@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+// das ist eine mögliche user experience, die mit codegen aufgenommen wurde. dabei wurden die funktionalitäten der website nacheinander getestet
 
 test('test', async ({ page }) => {
   await page.goto('http://localhost:3000/');
