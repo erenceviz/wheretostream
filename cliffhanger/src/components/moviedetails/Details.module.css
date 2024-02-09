@@ -1,7 +1,7 @@
 .h5 {
   color: #ae26f2;
 }
-.h4{
+.h4 {
   margin-top: 20px;
   color: #ae26f2;
 }
@@ -21,7 +21,7 @@
   object-fit: cover;
   object-position: 50% 20%;
 }
-.imageBlocker{
+.imageBlocker {
   min-height: 600px;
 }
 .bannerContentBackground {
@@ -82,8 +82,8 @@
   width: auto;
   object-fit: cover;
 }
-.headlineWithBookmark{
-    display: flex;
+.headlineWithBookmark {
+  display: flex;
 }
 .whereToWatch {
   /* border: 1px green solid; */
@@ -91,8 +91,8 @@
   width: 50%;
 }
 .tableWhereToWatch {
-    display: flex;
-    gap: 1rem;
+  display: flex;
+  gap: 1rem;
 }
 .watchItem {
   display: flex;
@@ -122,8 +122,8 @@
   margin-top: 6rem;
 }
 .tableLeadingActors {
-    display: flex;
-    gap: 1rem;
+  display: flex;
+  gap: 1rem;
 }
 .posterActor {
   display: block;
@@ -131,11 +131,11 @@
   width: auto;
   object-fit: cover;
 }
-.castDiv{
+.castDiv {
   display: flex;
   flex-direction: column;
   text-align: center;
   margin-right: 30px;
-  gap:10px;
+  gap: 10px;
   min-width: 160px;
 }

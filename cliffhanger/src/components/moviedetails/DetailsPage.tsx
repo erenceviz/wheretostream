@@ -22,11 +22,11 @@ export const BookmarkIcon: React.FC<BookmarkIconAttributes> = ({
 }: BookmarkIconAttributes) => {
   return (
     <svg
-    className={className}
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0,0,256,256"
-    width="60px"
-    height="60px"
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0,0,256,256"
+      width="60px"
+      height="60px"
     >
       <g
         fill="#ffffff"
@@ -43,7 +43,7 @@ export const BookmarkIcon: React.FC<BookmarkIconAttributes> = ({
         fontSize="none"
         textAnchor="none"
         style={{ mixBlendMode: "normal" }}
-        >
+      >
         <g transform="scale(8.53333,8.53333)">
           <path d="M23,27l-8,-7l-8,7v-22c0,-1.105 0.895,-2 2,-2h12c1.105,0 2,0.895 2,2z"></path>
         </g>
@@ -58,9 +58,9 @@ function DetailsPage({ movieId }: IDetailsPage) {
   const [isLoading, setIsLoading] = useState(false);
   const [movieData, setMovieData] = useState<MovieData | null>(null);
   const [castData, setCast] = useState<CastData | null>(null);
-  const [videoData, setTrailer] = useState<IMovieTrailerResponse | null >(null);
+  const [videoData, setTrailer] = useState<IMovieTrailerResponse | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+
   const { bookmarkState, dispatch } = useContext(BookmarkContext);
 
   useEffect(() => {
@@ -107,8 +107,8 @@ function DetailsPage({ movieId }: IDetailsPage) {
 
   const movieInList: boolean = Boolean(
     bookmarkState.movies &&
-      movieId &&
-      bookmarkState.movies.find((ele) => ele.id === parseInt(movieId as string))
+    movieId &&
+    bookmarkState.movies.find((ele) => ele.id === parseInt(movieId as string))
   );
 
   const toggleBookmark = () => {
@@ -128,8 +128,8 @@ function DetailsPage({ movieId }: IDetailsPage) {
   // function openTrailerInNewTab(trailerLink: string) {
   //   window.open(trailerLink, "_blank");
   // }
-  
-  function findTrailerKey(responseData : IMovieTrailerResponse) {
+
+  function findTrailerKey(responseData: IMovieTrailerResponse) {
     const trailerObject = responseData?.results.find(
       (item) => item.type === "Trailer"
     );
@@ -173,29 +173,45 @@ function DetailsPage({ movieId }: IDetailsPage) {
               className={styles.playTrailerBtn}
               variant="contained"
               onClick={() => setIsModalOpen(true)}
-              >Play Trailer
+            >Play Trailer
             </Button>
           </div>
         </div>
       </div>
       <div className={styles.movieDetails}>
-      {isModalOpen && (
-      <Modal
-        isOpen={isModalOpen}
-        onRequestClose={() => setIsModalOpen(false)}
-        contentLabel="Trailer Modal"
-      >
-        {trailerKey && (
-          <iframe
-            width="560"
-            height="315"
-            src={`https://www.youtube.com/embed/${trailerKey}`}
-            title="YouTube video player"
-            allowFullScreen
-          ></iframe>
+        {isModalOpen && (
+          <Modal
+            isOpen={isModalOpen}
+            onRequestClose={() => setIsModalOpen(false)}
+            contentLabel="Trailer Modal"
+            style={{
+              overlay: {
+                position: 'fixed',
+                backgroundColor: 'rgba(0, 0, 0, 0.75)',
+                zIndex: 1000
+              },
+              content: {
+                position: 'absolute',
+                top: '50 %',
+                left: '50 %',
+                border: 'none',
+                background: 'transparent',
+                overflow: 'auto',
+                outline: 'none',
+              }
+            }}
+          >
+            {trailerKey && (
+              <iframe
+                width="750"
+                height="420"
+                src={`https://www.youtube.com/embed/${trailerKey}`}
+                title="YouTube video player"
+                allowFullScreen
+              ></iframe>
+            )}
+          </Modal>
         )}
-      </Modal>
-    )}
         <div className={styles.posterAndInfo}>
           <img
             className={styles.poster}
