@@ -6,6 +6,7 @@ import { CastData } from "@/types/CastData";
 import { BookmarkActionOptions, BookmarkContext } from "@/pages/_app";
 import { IMovieTrailerResponse } from "@/types/MovieTrailer";
 import Modal from 'react-modal';
+import MovieRatingForm from "./MovieRatingFormular";
 
 interface IDetailsPage {
   movieId: string | string[] | undefined;
@@ -311,6 +312,7 @@ function DetailsPage({ movieId }: IDetailsPage) {
             ))}
           </div>
         </div>
+        <MovieRatingForm/>
       </div>
     </>
   );

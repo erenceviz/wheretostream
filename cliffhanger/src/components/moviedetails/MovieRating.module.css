@@ -1,0 +1,63 @@
+.movieRatingContainer {
+  /* border: 1px solid red; */
+  width: 50%;
+  margin-top: 6rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.movieRatingContainer h4 {
+  margin-bottom: 2rem;
+}
+
+.submitBtn {
+  max-width: 150px;
+  background-color: #ae26f2;
+  border-style: none;
+  border-radius: 4px;
+}
+
+.subContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.subContainer input {
+  height: 35px;
+  color: white;
+  background-color: #020e27;
+  /* border: 1px solid #3f3f3f; */
+  border: 1px solid #1e213d;
+  border-radius: 4px;
+}
+
+.subContainer input:focus {
+    color: white;
+  border: 1px solid #0e294b;
+}
+
+.subContainer select {
+  max-width: 200px;
+  height: 35px;
+  color: white;
+  border: 1px solid #1e213d;
+  background-color: #020e27;
+}
+
+.subContainer textarea {
+  color: white;
+  min-height: 150px;
+  border: 1px solid #1e213d;
+  background-color: #020e27;
+}
+
+.successfullySend{
+    color: green;
+    margin-top: 1rem;
+}
+
+/* .subContainer > * {
+    margin-top: 0.5rem;
+  } */
