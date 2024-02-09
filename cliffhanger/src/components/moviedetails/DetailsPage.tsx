@@ -8,6 +8,7 @@ import { IMovieTrailerResponse } from "@/types/MovieTrailer";
 import Modal from 'react-modal';
 import { StreamingService } from "@/pages/api/streamingService";
 import { Stream } from "stream";
+import { TvData2 } from "@/types/TvData2";
 
 interface IDetailsPage {
   movieId: string | string[] | undefined;
@@ -54,11 +55,12 @@ export const BookmarkIcon: React.FC<BookmarkIconAttributes> = ({
   );
 };
 
-function DetailsPage({ movieId }: IDetailsPage) {
+export function DetailsPage({ itemId }: IDetailsPage) {
   // const { id } = useParams();
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [movieData, setMovieData] = useState<MovieData | null>(null);
+  const [tvData, setTvData] = useState<TvData2 | null>(null);
   const [castData, setCast] = useState<CastData | null>(null);
   const [videoData, setTrailer] = useState<IMovieTrailerResponse | null >(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -68,53 +70,73 @@ function DetailsPage({ movieId }: IDetailsPage) {
   const { bookmarkState, dispatch } = useContext(BookmarkContext);
 
   useEffect(() => {
-    if (typeof movieId === "undefined") return;
-    const getMovieData = async () => {
+    if (typeof itemId === "undefined") return;
+  
+    const getMediaData = async () => {
       setIsLoading(true);
+  
       try {
-        const response = await fetch(
-          `https://api.themoviedb.org/3/movie/${movieId}?language=en-US&api_key=${process.env.NEXT_PUBLIC_API_KEY}`
+        let mediaType: string;
+        let mediaDataEndpoint: string;
+        let creditsEndpoint: string;
+  
+        // Determine the type of media based on the URL path
+        const isMovie = window.location.pathname.startsWith("/movie");
+  
+        if (isMovie) {
+          mediaType = "movie";
+          mediaDataEndpoint = `https://api.themoviedb.org/3/movie/${itemId}`;
+        } else {
+          mediaType = "tv";
+          mediaDataEndpoint = `https://api.themoviedb.org/3/tv/${itemId}`;
+        }
+  
+        // Fetch media data
+        const mediaResponse = await fetch(
+          `${mediaDataEndpoint}?language=en-US&api_key=${process.env.NEXT_PUBLIC_API_KEY}`
         );
-        const movieData: MovieData = await response.json();
-        setMovieData(movieData);
-
+        const mediaData: MovieData | TvData2 = await mediaResponse.json();
+  
+        // Fetch credits data
         const creditsResponse = await fetch(
-          `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
+          `${mediaDataEndpoint}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
         );
         const creditsData: CastData = await creditsResponse.json();
-        setCast(creditsData);
-
+  
+        // Fetch video data
         const videoResponse = await fetch(
-          `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
+          `${mediaDataEndpoint}/videos?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
         );
         const videoData: IMovieTrailerResponse = await videoResponse.json();
+          console.log("media", mediaData)
+        // Set state based on the type of media
+        if (mediaType === "movie") {
+          setMovieData(mediaData as MovieData);
+        } else {
+          console.log(mediaData)
+          setTvData(mediaData as TvData);
+        }
+        console.log(tvData)
+        setCast(creditsData);
         setTrailer(videoData);
-
+  
+        // Fetch streaming services
         const streamingResponse = await fetch("/api/streamingService");
         if (!streamingResponse.ok) {
           throw new Error("Failed to fetch streaming services");
         }
         const streamingData: StreamingService[] = await streamingResponse.json();
         setStreamingServices(streamingData);
-
-        console.log("streaming data",streamingData);
-
-        console.log("Trailer Data: ", videoData);
-
       } catch (e: any) {
         setError(e);
       } finally {
         setIsLoading(false);
       }
-      // const foundPlatforms = findStreamingPlatforms();
-      //   setPlatforms(foundPlatforms);
-
-      //   console.log("foundPlatforms",foundPlatforms);
-        
     };
-
-    getMovieData();
-  }, [movieId]);
+  
+    getMediaData();
+  }, [itemId]);
+  
 
     useEffect(() => {
       if (movieData && movieData.title && streamingServices.length > 0) {
@@ -149,8 +171,8 @@ function DetailsPage({ movieId }: IDetailsPage) {
 
   const movieInList: boolean = Boolean(
     bookmarkState.movies &&
-      movieId &&
-      bookmarkState.movies.find((ele) => ele.id === parseInt(movieId as string))
+      itemId &&
+      bookmarkState.movies.find((ele) => ele.id === parseInt(itemId as string))
   );
 
   const toggleBookmark = () => {
@@ -185,105 +207,106 @@ function DetailsPage({ movieId }: IDetailsPage) {
   return (
     <>
       <div className={styles.imageBlocker}>&nbsp;</div>
-      <div className={styles.bannerContainer}>
-        <img
-          className={styles.bannerImage}
-          src={
-            movieData?.backdrop_path
-              ? `https://image.tmdb.org/t/p/original${movieData?.backdrop_path}`
-              : ""
-          }
-          alt=""
-        />
+    <div className={styles.bannerContainer}>
+      <img
+        className={styles.bannerImage}
+        src={
+          (movieData && movieData?.backdrop_path) || (tvData && tvData?.backdrop_path)
+            ? `https://image.tmdb.org/t/p/original${movieData?.backdrop_path || tvData?.backdrop_path}`
+            : ""
+        }
+        alt=""
+      />
 
-        <div className={styles.bannerContentBackground}>
-          <div className={styles.gradient}></div>
-          <div className={styles.bannerContent}>
-            <h2 className={styles.h5}>Watch</h2>
-            <h1>{movieData?.title}</h1>
-            <div style={{ display: "flex", gap: "5px" }}>
-              {movieData?.genres.map((genre) => (
+      <div className={styles.bannerContentBackground}>
+        <div className={styles.gradient}></div>
+        <div className={styles.bannerContent}>
+          <h2 className={styles.h5}>Watch</h2>
+          <h1>{movieData?.title || tvData?.name}</h1>
+          <div style={{ display: "flex", gap: "5px" }}>
+            {(movieData || tvData) &&
+              (movieData?.genres || tvData?.genres).map((genre) => (
                 <p key={genre.id} className={styles.movieMetaData}>
                   {genre.name}
                 </p>
               ))}
-              <p className={styles.movieMetaData}>
-                {movieData?.release_date.slice(0, 4)}
-              </p>
-            </div>
-            <Button
-              className={styles.playTrailerBtn}
-              variant="contained"
-              onClick={() => setIsModalOpen(true)}
-              >Play Trailer
-            </Button>
+            <p className={styles.movieMetaData}>
+              {(movieData && movieData?.release_date) || (tvData && tvData?.first_air_date)?.slice(0, 4)}
+            </p>
           </div>
+          <Button
+            className={styles.playTrailerBtn}
+            variant="contained"
+            onClick={() => setIsModalOpen(true)}
+            >Play Trailer
+          </Button>
         </div>
       </div>
-      <div className={styles.movieDetails}>
+    </div>
+    <div className={styles.movieDetails}>
       {isModalOpen && (
-      <Modal
-        isOpen={isModalOpen}
-        onRequestClose={() => setIsModalOpen(false)}
-        contentLabel="Trailer Modal"
-      >
-        {trailerKey && (
-          <iframe
-            width="560"
-            height="315"
-            src={`https://www.youtube.com/embed/${trailerKey}`}
-            title="YouTube video player"
-            allowFullScreen
-          ></iframe>
-        )}
-      </Modal>
-    )}
-        <div className={styles.posterAndInfo}>
-          <img
-            className={styles.poster}
-            src={
-              movieData?.poster_path
-                ? `https://image.tmdb.org/t/p/w300${movieData?.poster_path}`
-                : ""
-            }
-          />
-          <div className={styles.infoToPoster}>
-            <div className={styles.headlineWithBookmark}>
-              <h1>{movieData?.title}</h1>
-              <svg
-                style={{ height: "40px", width: "auto", marginLeft: "auto" }}
-                onClick={toggleBookmark}
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0,0,256,256"
-                width="60px"
-                height="60px"
+        <Modal
+          isOpen={isModalOpen}
+          onRequestClose={() => setIsModalOpen(false)}
+          contentLabel="Trailer Modal"
+        >
+          {trailerKey && (
+            <iframe
+              width="560"
+              height="315"
+              src={`https://www.youtube.com/embed/${trailerKey}`}
+              title="YouTube video player"
+              allowFullScreen
+            ></iframe>
+          )}
+        </Modal>
+      )}
+      <div className={styles.posterAndInfo}>
+        <img
+          className={styles.poster}
+          src={
+            (movieData && movieData?.poster_path) || (tvData && tvData?.poster_path)
+              ? `https://image.tmdb.org/t/p/w300${movieData?.poster_path || tvData?.poster_path}`
+              : ""
+          }
+        />
+        <div className={styles.infoToPoster}>
+          <div className={styles.headlineWithBookmark}>
+            <h1>{movieData?.title || tvData?.name}</h1>
+            <svg
+              style={{ height: "40px", width: "auto", marginLeft: "auto" }}
+              onClick={toggleBookmark}
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0,0,256,256"
+              width="60px"
+              height="60px"
+            >
+              <g
+                fill={movieInList ? "gold" : "white"}
+                fillRule="nonzero"
+                stroke="none"
+                strokeWidth="1"
+                strokeLinecap="butt"
+                strokeLinejoin="miter"
+                strokeMiterlimit="10"
+                strokeDasharray=""
+                strokeDashoffset="0"
+                fontFamily="none"
+                fontWeight="none"
+                fontSize="none"
+                textAnchor="none"
+                style={{ mixBlendMode: "normal" }}
               >
-                <g
-                  fill={movieInList ? "gold" : "white"}
-                  fillRule="nonzero"
-                  stroke="none"
-                  strokeWidth="1"
-                  strokeLinecap="butt"
-                  strokeLinejoin="miter"
-                  strokeMiterlimit="10"
-                  strokeDasharray=""
-                  strokeDashoffset="0"
-                  fontFamily="none"
-                  fontWeight="none"
-                  fontSize="none"
-                  textAnchor="none"
-                  style={{ mixBlendMode: "normal" }}
-                >
-                  <g transform="scale(8.53333,8.53333)">
-                    <path d="M23,27l-8,-7l-8,7v-22c0,-1.105 0.895,-2 2,-2h12c1.105,0 2,0.895 2,2z"></path>
-                  </g>
+                <g transform="scale(8.53333,8.53333)">
+                  <path d="M23,27l-8,-7l-8,7v-22c0,-1.105 0.895,-2 2,-2h12c1.105,0 2,0.895 2,2z"></path>
                 </g>
-              </svg>
-            </div>
-            <h4 className={styles.h4}>{movieData?.runtime} minutes</h4>
-            <p style={{ marginTop: "20px" }}>{movieData?.overview}</p>
+              </g>
+            </svg>
           </div>
+          <h4 className={styles.h4}>{movieData?.runtime || (tvData && tvData?.episode_run_time[0])} minutes</h4>
+          <p style={{ marginTop: "20px" }}>{movieData?.overview || tvData?.overview}</p>
         </div>
+      </div>
         <div className={styles.whereToWatch}>
           <h4 style={{ marginBottom: "1rem" }}>
             Where to watch {movieData?.title}

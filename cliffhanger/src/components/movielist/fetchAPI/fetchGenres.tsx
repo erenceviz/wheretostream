@@ -24,3 +24,5 @@ export const fetchMovieGenres = async () => {
       throw error;
     }
   };
+
+
